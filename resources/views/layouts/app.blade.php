@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="en" data-bs-theme="light">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <title>@yield('title', 'Dashboard') — Employra</title>
+    <link rel="icon" type="image/png" href="{{ asset('images/favicon.png') }}">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ asset('vendor/bootstrap/css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('vendor/bootstrap-icons/bootstrap-icons.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/employra.css') }}">
+    @stack('styles')
+</head>
+<body class="app-body">
+    <a class="visually-hidden-focusable position-absolute p-2 bg-white" href="#main">Skip to content</a>
+
+    <div class="app-shell">
+        {{-- Desktop sidebar --}}
+        <aside class="app-sidebar d-none d-lg-flex" aria-label="Candidate navigation">
+            @include('partials.candidate-sidebar')
+        </aside>
+
+        {{-- Mobile sidebar (opens from the menu button) --}}
+        <div class="offcanvas offcanvas-start app-offcanvas" tabindex="-1" id="mobileSidebar" aria-labelledby="mobileSidebarLabel">
+            <div class="offcanvas-header pb-0">
+                <span class="visually-hidden" id="mobileSidebarLabel">Menu</span>
+                <button type="button" class="btn-close ms-auto" data-bs-dismiss="offcanvas" aria-label="Close menu"></button>
+            </div>
+            <div class="offcanvas-body p-0">
+                <div class="app-sidebar" aria-label="Candidate navigation">
+                    @include('partials.candidate-sidebar')
+                </div>
+            </div>
+        </div>
+
+        <div class="app-main">
+            <header class="app-topbar">
+                <button class="icon-btn d-lg-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#mobileSidebar" aria-controls="mobileSidebar" aria-label="Open menu">
+                    <i class="bi bi-list fs-5"></i>
+                </button>
+
+                <form action="{{ route('jobs.index') }}" method="GET" class="d-none d-md-block flex-grow-1" style="max-width: 420px;" role="search">
+                    <label for="topbar-search" class="visually-hidden">Search jobs</label>
+                    <div class="input-icon">
+                        <i class="bi bi-search"></i>
+                        <input id="topbar-search" type="text" name="q" class="form-control" placeholder="Search jobs, skills or companies">
+                    </div>
+                </form>
+
+                <div class="ms-auto d-flex align-items-center gap-2">
+                    <a href="{{ route('jobs.index') }}" class="btn btn-outline-navy btn-sm d-none d-sm-inline-flex"><i class="bi bi-search me-1"></i>Browse jobs</a>
+
+                    <div class="dropdown">
+                        <button class="icon-btn" type="button" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false" aria-label="Notifications">
+                            <i class="bi bi-bell"></i><span class="dot"></span>
+                        </button>
+                        <div class="dropdown-menu dropdown-menu-end notif-menu">
+                            <div class="d-flex justify-content-between align-items-center px-2 py-1">
+                                <strong class="text-navy">Notifications</strong>
+                                <a href="#" class="small fw-bold">Mark all read</a>
+                            </div>
+                            @foreach ($notifications ?? [] as $n)
+                                <a href="#" class="notif-item text-decoration-none">
+                                    <div class="icon-tile {{ $n['tone'] === 'orange' ? 'orange' : ($n['tone'] === 'green' ? 'green' : '') }}"><i class="bi bi-{{ $n['icon'] }}"></i></div>
+                                    <div>
+                                        <div class="small fw-bold text-navy">{{ $n['text'] }}</div>
+                                        <div class="small text-muted-emp">{{ $n['time'] }}</div>
+                                    </div>
+                                </a>
+                            @endforeach
+                        </div>
+                    </div>
+
+                    <div class="dropdown">
+                        <button class="user-menu" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Profile menu">
+                            <span class="avatar" aria-hidden="true">
+                                @auth <i class="bi bi-person-fill"></i> @else {{ $candidate['initials'] ?? 'AO' }} @endauth
+                            </span>
+                            <span class="d-none d-sm-inline">
+                                @auth {{ auth()->user()->name }} @else {{ $candidate['first_name'] ?? 'Account' }} @endauth
+                            </span>
+                            <i class="bi bi-chevron-down small text-muted"></i>
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-end" style="border-radius:14px; padding:.5rem;">
+                            <li><a class="dropdown-item rounded-2 fw-semibold" href="{{ route('candidate.profile') }}"><i class="bi bi-person me-2"></i>My profile</a></li>
+                            <li><a class="dropdown-item rounded-2 fw-semibold" href="{{ route('candidate.cvs') }}"><i class="bi bi-file-earmark-text me-2"></i>Resume</a></li>
+                            <li><a class="dropdown-item rounded-2 fw-semibold" href="{{ route('candidate.settings') }}"><i class="bi bi-gear me-2"></i>Account settings</a></li>
+                            <li><a class="dropdown-item rounded-2 fw-semibold" href="{{ route('candidate.settings') }}#notification-settings"><i class="bi bi-bell me-2"></i>Notification settings</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li>
+                                <form method="POST" action="{{ route('logout') }}">
+                                    @csrf
+                                    <button type="submit" class="dropdown-item rounded-2 fw-semibold text-danger"><i class="bi bi-box-arrow-right me-2"></i>Sign out</button>
+                                </form>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </header>
+
+            <main id="main" class="app-content">
+                @include('partials.flash-inline')
+                @yield('content')
+            </main>
+        </div>
+    </div>
+
+    <script src="{{ asset('vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+    <script src="{{ asset('js/employra.js') }}"></script>
+    @stack('scripts')
+</body>
+</html>
