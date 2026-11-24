@@ -33,6 +33,17 @@
 <h1 class="h2 mb-1">What are you looking for?</h1>
 <p class="text-muted-emp mb-4">Add your preferences once. You can update your CV later, and you can skip the upload for now.</p>
 
+@if ($errors->any())
+    <div class="alert alert-danger" role="alert">
+        <strong>We couldn't save your profile yet. Please correct these fields:</strong>
+        <ul class="mb-0 mt-2">
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
+
 <form action="{{ route('candidate.onboarding.store') }}" method="POST" enctype="multipart/form-data">
     @csrf
 

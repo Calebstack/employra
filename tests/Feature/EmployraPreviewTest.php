@@ -19,7 +19,6 @@ class EmployraPreviewTest extends TestCase
     {
         $paths = [
             '/',
-            '/gui-preview',
             '/jobs',
             '/companies',
             '/login',

@@ -57,6 +57,10 @@ class RegisterController extends Controller
             ? route('candidate.onboarding')
             : route('employer.dashboard');
 
+        if ($guard === 'web') {
+            return redirect($destination);
+        }
+
         return redirect($destination)
             ->with('status', 'Your account has been created.')
             ->with('status_type', 'success');

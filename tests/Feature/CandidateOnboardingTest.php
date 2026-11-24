@@ -94,6 +94,28 @@ class CandidateOnboardingTest extends TestCase
         $this->assertCount(0, $profile->cvs);
     }
 
+    public function test_candidate_can_register_complete_onboarding_and_remain_signed_in(): void
+    {
+        $this->post(route('register.submit'), [
+            'name' => 'A Candidate',
+            'email' => 'candidate-onboarding@example.com',
+            'password' => 'SecurePass123',
+            'password_confirmation' => 'SecurePass123',
+            'role' => 'candidate',
+            'terms' => '1',
+        ])->assertRedirect(route('candidate.onboarding'));
+
+        $user = User::where('email', 'candidate-onboarding@example.com')->firstOrFail();
+        $this->assertAuthenticatedAs($user);
+        $this->get(route('candidate.onboarding'))->assertOk();
+
+        $this->post(route('candidate.onboarding.store'), $this->validOnboardingData())
+            ->assertRedirect(route('jobs.index'));
+
+        $this->assertAuthenticatedAs($user);
+        $this->get(route('jobs.index'))->assertOk();
+    }
+
     public function test_candidate_can_update_profile_and_store_a_private_profile_photo(): void
     {
         Storage::fake('local');
@@ -182,13 +204,32 @@ class CandidateOnboardingTest extends TestCase
             ->assertNotFound();
     }
 
-    public function test_incomplete_candidate_is_redirected_to_onboarding_from_home(): void
+    public function test_incomplete_candidate_can_return_home_without_an_onboarding_redirect_loop(): void
     {
         $user = User::factory()->create(['role' => 'candidate']);
 
         $this->actingAs($user)
             ->get(route('home'))
-            ->assertRedirect(route('candidate.onboarding'));
+            ->assertRedirect(route('jobs.index'));
+
+        $this->assertAuthenticatedAs($user);
+    }
+
+    public function test_onboarding_validation_errors_are_summarized_for_the_candidate(): void
+    {
+        $user = User::factory()->create(['role' => 'candidate']);
+
+        $this->actingAs($user)
+            ->from(route('candidate.onboarding'))
+            ->post(route('candidate.onboarding.store'), $this->validOnboardingData([
+                'preferred_work_modes' => [],
+            ]))
+            ->assertRedirect(route('candidate.onboarding'))
+            ->assertSessionHasErrors('preferred_work_modes');
+
+        $this->get(route('candidate.onboarding'))
+            ->assertOk()
+            ->assertSee("We couldn't save your profile yet. Please correct these fields:", false);
     }
 
     private function validOnboardingData(array $overrides = []): array

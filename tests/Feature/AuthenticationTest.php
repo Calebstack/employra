@@ -26,7 +26,7 @@ class AuthenticationTest extends TestCase
         ]);
 
         $response->assertRedirect(route('candidate.onboarding'));
-        $response->assertSessionHas('status', 'Your account has been created.');
+        $response->assertSessionMissing('status');
         $user = User::where('email', 'candidate@example.com')->firstOrFail();
 
         $this->assertDatabaseHas('candidate_profiles', ['user_id' => $user->id]);
@@ -35,7 +35,7 @@ class AuthenticationTest extends TestCase
 
         $this->get(route('candidate.onboarding'))
             ->assertOk()
-            ->assertSee('Your account has been created.')
+            ->assertDontSee('Your account has been created.')
             ->assertSee('What are you looking for?')
             ->assertSee('Select a state')
             ->assertSee('Federal Capital Territory (FCT)')

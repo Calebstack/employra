@@ -65,10 +65,6 @@ Route::get('/', function (Request $request) {
         return redirect()->route('admin.dashboard');
     }
     if ($user?->role === 'candidate') {
-        if ($user->candidateProfile?->onboarding_completed_at === null) {
-            return redirect()->route('candidate.onboarding');
-        }
-
         return redirect()->route('jobs.index');
     }
 
@@ -1473,12 +1469,3 @@ Route::middleware(['auth:admin', 'role:admin'])->group(function () {
         return redirect()->route('admin.settings')->with('status', 'Administrator account created.');
     })->name('admin.admins.store');
 });
-
-// ---- Start page listing every screen --------------------------------------
-
-Route::get('/gui-preview', function () {
-    $job = MockData::jobs()[0];
-    $company = MockData::companies()[0];
-
-    return view('preview.index', ['sampleJob' => $job, 'sampleCompany' => $company]);
-})->name('preview.index');
