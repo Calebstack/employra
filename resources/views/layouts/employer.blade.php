@@ -81,14 +81,24 @@
                             <span class="d-none d-sm-inline">{{ $employer['first_name'] ?? 'Account' }}</span>
                             <i class="bi bi-chevron-down small text-muted"></i>
                         </button>
-                        <ul class="dropdown-menu dropdown-menu-end" style="border-radius:14px; padding:.5rem;">
-                            <li><a class="dropdown-item rounded-2 fw-semibold" href="{{ route('employer.company') }}"><i class="bi bi-person me-2"></i>Company profile</a></li>
-                            <li><a class="dropdown-item rounded-2 fw-semibold" href="{{ route('employer.company') }}"><i class="bi bi-gear me-2"></i>Account</a></li>
+                        <ul class="dropdown-menu dropdown-menu-end account-menu">
+                            <li class="account-head">
+                                <span class="avatar lg" aria-hidden="true"><i class="bi bi-person-fill"></i></span>
+                                <div class="min-w-0">
+                                    <div class="fw-bold text-navy text-truncate">@auth {{ auth()->user()->name }} @else Account @endauth</div>
+                                    <div class="small text-muted-emp text-truncate">@auth {{ auth()->user()->email }} @endauth</div>
+                                </div>
+                            </li>
+                            <li class="account-label">Your workspace</li>
+                            <li><a class="dropdown-item" href="{{ route('employer.dashboard') }}"><i class="bi bi-grid-1x2"></i>Dashboard</a></li>
+                            <li><a class="dropdown-item" href="{{ route('employer.jobs') }}"><i class="bi bi-briefcase"></i>My jobs</a></li>
+                            <li><a class="dropdown-item" href="{{ route('employer.company') }}"><i class="bi bi-buildings"></i>Company profile</a></li>
+                            <li><a class="dropdown-item" href="{{ route('employer.company') }}"><i class="bi bi-gear"></i>Account settings</a></li>
                             <li><hr class="dropdown-divider"></li>
                             <li>
                                 <form method="POST" action="{{ route('logout') }}">
                                     @csrf
-                                    <button type="submit" class="dropdown-item rounded-2 fw-semibold text-danger"><i class="bi bi-box-arrow-right me-2"></i>Sign out</button>
+                                    <button type="submit" class="dropdown-item text-danger"><i class="bi bi-box-arrow-right"></i>Sign out</button>
                                 </form>
                             </li>
                         </ul>

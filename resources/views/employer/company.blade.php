@@ -3,20 +3,22 @@
 
 @section('content')
 @php $c = $employer['company']; @endphp
-<div class="page-head d-flex flex-wrap justify-content-between align-items-end gap-2 mb-4">
-    <div><h1 class="page-title">Company profile</h1><p class="text-muted-emp mb-0">This is what candidates see on your public page.</p></div>
-    @if ($c['status'] === 'Verified')
-        <a href="{{ route('companies.show', $c['slug']) }}" class="btn btn-outline-navy btn-sm">View public page</a>
-    @endif
+<div class="page-banner">
+    <div class="d-flex flex-wrap justify-content-between align-items-center gap-3">
+        <div><h1 class="page-title">Company profile</h1><p class="mb-0">This is what candidates see on your public page.</p></div>
+        @if ($c['status'] === 'Verified')
+            <div class="d-flex flex-wrap gap-2"><a href="{{ route('companies.show', $c['slug']) }}" class="btn btn-outline-navy"><i class="bi bi-box-arrow-up-right me-1"></i>View public page</a></div>
+        @endif
+    </div>
 </div>
 
 <form action="{{ route('employer.company.update') }}" method="POST" enctype="multipart/form-data" class="needs-validation" novalidate>
     @csrf
     <div class="row g-4">
         <div class="col-lg-8">
-            <div class="card-emp p-4 mb-4">
-                <h2 class="h5 mb-3">Basics</h2>
-                <div class="d-flex align-items-center gap-3 mb-4">
+            <div class="card-emp p-3 p-md-4 mb-4">
+                <div class="d-flex align-items-center gap-3 mb-4"><div class="icon-tile"><i class="bi bi-building"></i></div><h2 class="h5 mb-0">Basics</h2></div>
+                <div class="d-flex flex-wrap align-items-center gap-3 mb-4 p-3 rounded-3" style="background:var(--emp-bg, #f5f7fb);">
                     @if ($c['logo_url'])
                         <img src="{{ $c['logo_url'] }}" alt="{{ $c['name'] }} logo" class="rounded object-fit-cover" width="72" height="72">
                     @else
@@ -72,8 +74,8 @@
                     </div>
                 </div>
             </div>
-            <div class="card-emp p-4">
-                <h2 class="h5 mb-3">About</h2>
+            <div class="card-emp p-3 p-md-4">
+                <div class="d-flex align-items-center gap-3 mb-3"><div class="icon-tile"><i class="bi bi-card-text"></i></div><h2 class="h5 mb-0">About</h2></div>
                 <div class="mb-0">
                     <label class="form-label" for="description">About the company</label>
                     <textarea id="description" name="description" class="form-control @error('description') is-invalid @enderror" rows="6" maxlength="5000">{{ old('description', $c['description']) }}</textarea>
@@ -82,8 +84,8 @@
             </div>
         </div>
         <div class="col-lg-4">
-            <div class="card-emp p-4 mb-4">
-                <h2 class="h6 mb-3">Company account</h2>
+            <div class="card-emp p-3 p-md-4 mb-4 position-sticky" style="top: 90px;">
+                <h2 class="h6 mb-3"><i class="bi bi-shield-check me-1 text-orange"></i>Company account</h2>
                 <div class="small mb-2"><span class="text-muted-emp">Sign-in email</span><div class="fw-bold text-navy">{{ $c['email'] }}</div></div>
                 <div class="d-flex gap-2 align-items-start small">
                     <i class="bi bi-patch-check-fill {{ $c['status'] === 'Verified' ? 'text-success' : 'text-warning' }} fs-5"></i>
@@ -92,6 +94,6 @@
             </div>
         </div>
     </div>
-    <button type="submit" class="btn btn-emp mt-4">Save changes</button>
+    <div class="d-flex flex-wrap gap-2 mt-4"><button type="submit" class="btn btn-emp btn-lg"><i class="bi bi-check2 me-1"></i>Save changes</button></div>
 </form>
 @endsection

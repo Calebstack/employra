@@ -8,7 +8,7 @@
 <style>
     .auth-main { align-items: flex-start; justify-content: flex-start; padding-top: 2rem; padding-bottom: 2rem; }
     .auth-box { max-width: 760px; }
-    .onboarding-card { border: 1px solid var(--emp-line); border-radius: 16px; padding: 1.25rem; }
+    .onboarding-card { border: 1px solid var(--emp-line); border-radius: 18px; padding: 1.5rem; background: #fff; box-shadow: 0 1px 2px rgba(16,24,40,.04), 0 8px 24px rgba(10,31,110,.04); }
     .onboarding-card + .onboarding-card { margin-top: 1rem; }
     @media (max-width: 575.98px) { .onboarding-card { padding: 1rem; } }
 </style>
@@ -37,7 +37,7 @@
     @csrf
 
     <section class="onboarding-card">
-        <h2 class="h5 mb-1">Roles you want</h2>
+        <h2 class="h5 mb-1"><i class="bi bi-briefcase text-orange me-2"></i>Roles you want</h2>
         <p class="small text-muted-emp mb-3">Choose suggestions or type any job title. Add up to five.</p>
         <datalist id="role-suggestions">
             @foreach ($roleSuggestions as $roleSuggestion)
@@ -76,7 +76,7 @@
     </section>
 
     <section class="onboarding-card">
-        <h2 class="h5 mb-1">Where do you want to work?</h2>
+        <h2 class="h5 mb-1"><i class="bi bi-geo-alt text-orange me-2"></i>Where do you want to work?</h2>
         <p class="small text-muted-emp mb-3">Select one or more Nigerian states or the Federal Capital Territory. Add up to five.</p>
         <div id="preferred-location-fields">
             @foreach ($locations as $index => $location)
@@ -120,7 +120,7 @@
     </section>
 
     <section class="onboarding-card">
-        <h2 class="h5 mb-1">Work style</h2>
+        <h2 class="h5 mb-1"><i class="bi bi-laptop text-orange me-2"></i>Work style</h2>
         <p class="small text-muted-emp mb-3">Select every option you would consider.</p>
         <div class="d-flex flex-wrap gap-3">
             @foreach (['remote' => 'Remote', 'hybrid' => 'Hybrid', 'on_site' => 'On-site'] as $value => $label)
@@ -139,7 +139,7 @@
     </section>
 
     <section class="onboarding-card">
-        <h2 class="h5 mb-1">Availability</h2>
+        <h2 class="h5 mb-1"><i class="bi bi-calendar-check text-orange me-2"></i>Availability</h2>
         <label class="form-label mt-3" for="availability">When could you start?</label>
         <select id="availability" name="availability" class="form-select @error('availability') is-invalid @enderror" required>
             <option value="">Choose availability</option>
@@ -151,7 +151,7 @@
     </section>
 
     <section class="onboarding-card">
-        <h2 class="h5 mb-1">Desired monthly salary</h2>
+        <h2 class="h5 mb-1"><i class="bi bi-cash-stack text-orange me-2"></i>Desired monthly salary</h2>
         <p class="small text-muted-emp mb-3">Drag the sliders to set a range in Nigerian naira (NGN).</p>
         <div class="mb-3">
             <label class="form-label d-flex justify-content-between" for="expected_salary_min">
@@ -171,7 +171,7 @@
     </section>
 
     <section class="onboarding-card">
-        <h2 class="h5 mb-1">Contact and CV</h2>
+        <h2 class="h5 mb-1"><i class="bi bi-person-vcard text-orange me-2"></i>Contact and CV</h2>
         <p class="small text-muted-emp mb-3">Your phone number is optional. Your CV is stored privately and can be reused when you apply.</p>
         <div class="mb-3">
             <label class="form-label" for="phone">Phone number <span class="text-muted-emp fw-normal">(optional)</span></label>
@@ -191,6 +191,6 @@
         </div>
     </section>
 
-    <button class="btn btn-emp w-100 mt-3" type="submit">Save profile and continue</button>
+    <button class="btn btn-emp btn-lg w-100 mt-4" type="submit">Save profile and continue</button>
 </form>
 @endsection

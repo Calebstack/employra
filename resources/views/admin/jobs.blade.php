@@ -3,9 +3,12 @@
 
 @section('content')
 @php $status = request('status', 'all'); @endphp
-<div class="page-head mb-4"><h1 class="page-title">Jobs</h1><p class="text-muted-emp mb-0">Keep the job board honest and safe.</p></div>
+<div class="page-banner slate compact">
+    <h1 class="page-title h3">Jobs</h1>
+    <p>Keep the job board honest and safe.</p>
+</div>
 
-<div class="card-emp p-3 mb-3 d-flex flex-wrap gap-2 align-items-center justify-content-between">
+<div class="card-emp p-3 mb-3 d-flex flex-wrap gap-3 align-items-center justify-content-between">
     <ul class="nav nav-pills-emp mb-0 flex-nowrap overflow-auto">
         @foreach (['all' => 'All', 'Open' => 'Open', 'Flagged' => 'Flagged', 'Closed' => 'Closed', 'Taken down' => 'Taken down', 'Draft' => 'Draft'] as $k => $l)
             <li class="nav-item"><a class="nav-link {{ $status === $k ? 'active' : '' }}" href="{{ route('admin.jobs', ['status' => $k]) }}">{{ $l }}</a></li>
@@ -13,14 +16,14 @@
     </ul>
     <form method="GET" action="{{ route('admin.jobs') }}" class="d-flex gap-2" role="search">
         <input type="hidden" name="status" value="{{ $status }}">
-        <div class="input-icon" style="min-width:240px;"><i class="bi bi-search"></i><label class="visually-hidden" for="jq">Search jobs</label><input id="jq" name="q" value="{{ request('q') }}" class="form-control" placeholder="Search title or company"></div>
+        <div class="input-icon flex-grow-1" style="min-width:200px;"><i class="bi bi-search"></i><label class="visually-hidden" for="jq">Search jobs</label><input id="jq" name="q" value="{{ request('q') }}" class="form-control" placeholder="Search title or company"></div>
         <button type="submit" class="btn btn-outline-navy btn-sm">Search</button>
     </form>
 </div>
 
 <div class="card-emp overflow-hidden">
     <div class="table-responsive">
-    <table class="table table-emp align-middle">
+    <table class="table table-emp align-middle mb-0">
         <thead><tr><th class="ps-4">Job</th><th>Status</th><th>Applicants</th><th class="d-none d-md-table-cell">Posted</th><th></th></tr></thead>
         <tbody>
         @forelse ($jobs as $j)

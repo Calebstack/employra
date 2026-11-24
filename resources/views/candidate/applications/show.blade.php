@@ -5,17 +5,16 @@
 @php
     $closed = $application['is_closed'] ?? $application['status'] === 'Closed';
 @endphp
-<nav aria-label="breadcrumb"><ol class="breadcrumb small">
-    <li class="breadcrumb-item"><a href="{{ route('candidate.applications') }}">My applications</a></li>
-    <li class="breadcrumb-item active">{{ $application['job_title'] }}</li>
-</ol></nav>
-
-<div class="card-emp p-4 mb-4">
+<div class="page-banner compact">
+    <nav aria-label="breadcrumb"><ol class="breadcrumb small mb-2">
+        <li class="breadcrumb-item"><a href="{{ route('candidate.applications') }}" class="text-white-50">My applications</a></li>
+        <li class="breadcrumb-item active text-white">{{ $application['job_title'] }}</li>
+    </ol></nav>
     <div class="d-flex flex-wrap align-items-center gap-3">
         <div class="co-logo" style="background: {{ $application['company_color'] }}" aria-hidden="true">{{ $application['company_initials'] }}</div>
-        <div class="flex-grow-1">
-            <h1 class="h4 mb-1">{{ $application['job_title'] }}</h1>
-            <div class="text-muted-emp">{{ $application['company'] }} · {{ $application['location'] }} · {{ $application['mode'] }} · {{ $application['type'] }}</div>
+        <div class="flex-grow-1 min-w-0">
+            <h1 class="page-title">{{ $application['job_title'] }}</h1>
+            <p>{{ $application['company'] }} · {{ $application['location'] }} · {{ $application['mode'] }} · {{ $application['type'] }}</p>
         </div>
         @include('components.status-badge', ['status' => $application['status']])
     </div>
@@ -63,7 +62,7 @@
         @endif
 
         <div class="card-emp p-4">
-            <h2 class="h5 mb-4">Progress</h2>
+            <h2 class="h5 mb-4"><i class="bi bi-signpost-split text-orange me-2"></i>Progress</h2>
             <ul class="timeline">
                 @foreach ($application['timeline'] as $i => $t)
                     @php $state = $t['current'] ? 'current' : 'done'; @endphp
@@ -80,7 +79,7 @@
 
     <div class="col-lg-5">
         <div class="card-emp p-4 mb-4">
-            <h2 class="h6 mb-3">Application details</h2>
+            <h2 class="h6 mb-3"><i class="bi bi-info-circle text-orange me-2"></i>Application details</h2>
             <dl class="mb-0 small">
                 <dt>Submitted</dt><dd>{{ $application['submitted'] }}</dd>
                 <dt>CV used</dt><dd><i class="bi bi-file-earmark-pdf me-1"></i>{{ $application['cv'] }}</dd>
@@ -93,7 +92,7 @@
             </dl>
         </div>
         <div class="card-emp p-4">
-            <h2 class="h6 mb-3">Actions</h2>
+            <h2 class="h6 mb-3"><i class="bi bi-lightning-charge text-orange me-2"></i>Actions</h2>
             <a href="{{ route('jobs.show', $application['job_slug']) }}" class="btn btn-outline-navy w-100 mb-2">View job post</a>
             @unless ($closed)
                 <button class="btn btn-ghost w-100 text-danger" type="button" data-bs-toggle="modal" data-bs-target="#withdrawModal">Withdraw application</button>

@@ -7,6 +7,7 @@
 @section('content')
     @php($role = old('role', request('role', 'candidate')))
 
+    <div class="eyebrow mb-2">Free to join</div>
     <h1 class="h2 mb-1">Create your account</h1>
     <p class="text-muted-emp mb-4">Already have an account? <a href="{{ route('login', array_filter(['redirect' => request('redirect')])) }}" class="fw-bold">Sign in</a></p>
 
@@ -17,23 +18,23 @@
         @endif
 
         {{-- Step 1: who are you? --}}
-        <fieldset class="mb-4">
+        <fieldset class="mb-4 pub-role">
             <legend class="form-label">I want to…</legend>
             <div class="row g-2">
                 <div class="col-6">
                     <input type="radio" class="btn-check" name="role" id="role-candidate" value="candidate" @checked($role === 'candidate')>
                     <label class="role-card" for="role-candidate">
-                        <i class="bi bi-person-workspace fs-4 text-orange"></i>
+                        <span class="icon-tile orange mb-2"><i class="bi bi-person-workspace"></i></span>
                         <div class="fw-800 text-navy mt-1">Find a job</div>
-                        <div class="small text-muted-emp">Candidate account</div>
+                        <div class="small text-muted-emp">Candidate account: CV feedback and tracking</div>
                     </label>
                 </div>
                 <div class="col-6">
                     <input type="radio" class="btn-check" name="role" id="role-company" value="company" @checked($role === 'company' || $role === 'employer')>
                     <label class="role-card" for="role-company">
-                        <i class="bi bi-buildings fs-4 text-orange"></i>
+                        <span class="icon-tile orange mb-2"><i class="bi bi-buildings"></i></span>
                         <div class="fw-800 text-navy mt-1">Hire talent</div>
-                        <div class="small text-muted-emp">Company account</div>
+                        <div class="small text-muted-emp">Company account: post jobs and review applicants</div>
                     </label>
                 </div>
             </div>

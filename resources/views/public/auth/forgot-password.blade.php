@@ -5,6 +5,7 @@
 @section('side_text', 'Enter the email you registered with and we will send you a link to choose a new password.')
 
 @section('content')
+    <span class="icon-tile orange mb-3"><i class="bi bi-key"></i></span>
     <h1 class="h2 mb-1">Forgot your password?</h1>
     <p class="text-muted-emp mb-4">No problem. Enter your email address and we will send you a reset link.</p>
 

@@ -7,8 +7,8 @@
     $cvs = $profile?->cvs ?? collect();
 @endphp
 
-<div class="page-head mb-4">
-    <a href="{{ route('admin.users') }}" class="small fw-bold text-decoration-none"><i class="bi bi-arrow-left me-1"></i>Back to users</a>
+<div class="page-banner slate">
+    <a href="{{ route('admin.users') }}" class="small fw-bold text-decoration-none text-white-50"><i class="bi bi-arrow-left me-1"></i>Back to users</a>
     <div class="d-flex flex-wrap justify-content-between align-items-start gap-3 mt-3">
         <div class="d-flex align-items-center gap-3">
             @if ($user->candidateProfile?->photo_path)
@@ -24,8 +24,8 @@
                 <div class="avatar" aria-hidden="true">{{ \App\Support\JobPresenter::initials($user->name) }}</div>
             @endif
             <div>
-                <h1 class="page-title mb-1">{{ $user->name }}</h1>
-                <p class="text-muted-emp mb-0">{{ $user->email }} · Candidate account</p>
+                <h1 class="page-title h3 mb-1">{{ $user->name }}</h1>
+                <p>{{ $user->email }} · Candidate account</p>
             </div>
         </div>
         <span class="status {{ $user->status === 'active' ? 'offer' : 'closed' }}">{{ ucfirst($user->status) }}</span>
@@ -34,9 +34,10 @@
 
 <div class="row g-4 mb-4">
     <div class="col-lg-5">
-        <section class="card-emp p-4 h-100">
-            <h2 class="h5 mb-3">Account details</h2>
-            <dl class="row mb-0">
+        <section class="card-emp h-100">
+    <div class="card-head"><h2 class="h6 mb-0">Account details</h2></div>
+    <div class="p-4">
+<dl class="row mb-0">
                 <dt class="col-sm-5 text-muted-emp">Name</dt><dd class="col-sm-7">{{ $user->name }}</dd>
                 <dt class="col-sm-5 text-muted-emp">Email</dt><dd class="col-sm-7 text-break">{{ $user->email }}</dd>
                 <dt class="col-sm-5 text-muted-emp">Email verified</dt><dd class="col-sm-7">{{ $user->email_verified_at?->format('j M Y, H:i') ?? 'Not verified' }}</dd>
@@ -45,12 +46,14 @@
                 <dt class="col-sm-5 text-muted-emp">Last sign-in</dt><dd class="col-sm-7">{{ $user->last_login_at?->format('j M Y, H:i') ?? 'No sign-in recorded' }}</dd>
                 <dt class="col-sm-5 text-muted-emp">Applications</dt><dd class="col-sm-7">{{ $user->applications->count() }}</dd>
             </dl>
-        </section>
+    </div>
+</section>
     </div>
     <div class="col-lg-7">
-        <section class="card-emp p-4 h-100">
-            <h2 class="h5 mb-3">Candidate profile</h2>
-            @if ($profile)
+        <section class="card-emp h-100">
+    <div class="card-head"><h2 class="h6 mb-0">Candidate profile</h2></div>
+    <div class="p-4">
+@if ($profile)
                 <dl class="row mb-0">
                     <dt class="col-sm-4 text-muted-emp">Headline</dt><dd class="col-sm-8">{{ $profile->headline ?: 'Not provided' }}</dd>
                     <dt class="col-sm-4 text-muted-emp">Phone</dt><dd class="col-sm-8">{{ $profile->phone ?: 'Not provided' }}</dd>
@@ -78,16 +81,15 @@
             @else
                 <p class="text-muted-emp mb-0">This candidate has not created a profile yet.</p>
             @endif
-        </section>
+    </div>
+</section>
     </div>
 </div>
 
-<section class="card-emp p-4 mb-4">
-    <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-3">
-        <h2 class="h5 mb-0">Candidate CVs</h2>
-        <span class="small text-muted-emp">{{ $cvs->count() }} stored</span>
-    </div>
-    @forelse ($cvs as $cv)
+<section class="card-emp mb-4">
+    <div class="card-head"><h2 class="h6 mb-0">Candidate CVs</h2><span class="small text-muted-emp">{{ $cvs->count() }} stored</span></div>
+    <div class="p-4">
+@forelse ($cvs as $cv)
         <div class="d-flex flex-wrap justify-content-between align-items-center gap-3 border-top py-3">
             <div>
                 <div class="fw-bold">{{ $cv->original_name }} @if ($cv->is_primary)<span class="badge-soft ms-1">Primary</span>@endif</div>
@@ -99,14 +101,13 @@
         <p class="text-muted-emp mb-0">No CVs have been uploaded.</p>
     @endforelse
     <p class="small text-muted-emp border-top pt-3 mb-0">CV downloads are restricted to administrators and recorded in the activity log.</p>
+    </div>
 </section>
 
-<section class="card-emp p-4">
-    <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-3">
-        <h2 class="h5 mb-0">Application history</h2>
-        <span class="small text-muted-emp">{{ $user->applications->count() }} total</span>
-    </div>
-    @forelse ($user->applications as $application)
+<section class="card-emp">
+    <div class="card-head"><h2 class="h6 mb-0">Application history</h2><span class="small text-muted-emp">{{ $user->applications->count() }} total</span></div>
+    <div class="p-4">
+@forelse ($user->applications as $application)
         <article class="border-top py-3">
             <div class="d-flex flex-wrap justify-content-between gap-2">
                 <div>
@@ -151,5 +152,6 @@
     @empty
         <p class="text-muted-emp mb-0">This candidate has not submitted any applications.</p>
     @endforelse
+    </div>
 </section>
 @endsection

@@ -8,7 +8,7 @@
 <section class="hero">
     <div class="container">
         <div class="row align-items-center g-5">
-            <div class="col-lg-6">
+            <div class="col-lg-7">
                 <span class="eyebrow mb-3"><i class="bi bi-stars"></i> Clear hiring, people in charge</span>
                 <h1 class="mb-3">Find the right job.<br><span class="accent">Hire the right people.</span></h1>
                 <p class="lead mb-4">Employra helps candidates present their best selves and helps employers review applications fairly and quickly, with clear reasons behind every suggestion.</p>
@@ -47,7 +47,7 @@
                 </div>
             </div>
 
-            <div class="col-lg-6">
+            <div class="col-lg-5">
                 <div class="hero-visual" aria-hidden="true">
                     <div class="float-card fc-1">
                         <div class="d-flex align-items-center gap-3">
@@ -91,7 +91,7 @@
 </section>
 
 {{-- ============ STATS ============ --}}
-<section class="pb-2" style="margin-top:-2.2rem; position:relative; z-index:2;">
+<section class="home-stats pb-2">
     <div class="container">
         <div class="stat-strip shadow-emp">
             <div class="row text-center g-3">
@@ -102,6 +102,18 @@
                     </div>
                 @endforeach
             </div>
+        </div>
+    </div>
+</section>
+
+{{-- ============ TRUST BAND ============ --}}
+<section class="pt-4 pb-0">
+    <div class="container">
+        <div class="row g-3 pub-trust">
+            <div class="col-6 col-lg-3"><div class="pub-trust-item"><i class="bi bi-shield-check"></i><div><strong>Verified companies</strong><span>Employer profiles are reviewed</span></div></div></div>
+            <div class="col-6 col-lg-3"><div class="pub-trust-item"><i class="bi bi-lock"></i><div><strong>Private CVs</strong><span>Shared only when you apply</span></div></div></div>
+            <div class="col-6 col-lg-3"><div class="pub-trust-item"><i class="bi bi-chat-square-text"></i><div><strong>Clear reasons</strong><span>Explainable match feedback</span></div></div></div>
+            <div class="col-6 col-lg-3"><div class="pub-trust-item"><i class="bi bi-people"></i><div><strong>People decide</strong><span>AI only suggests</span></div></div></div>
         </div>
     </div>
 </section>
@@ -128,18 +140,18 @@
 
         <div class="tab-content">
             <div class="tab-pane fade show active" id="pane-candidates" role="tabpanel" aria-labelledby="tab-candidates" tabindex="0">
-                <div class="row g-3">
+                <div class="row g-4">
                     <div class="col-md-6 col-lg-3">
-                        <div class="step-card"><div class="step-num mb-3">1</div><h3 class="h6">Create your profile</h3><p class="text-muted-emp small mb-0">Add your skills, education and experience once. You control what employers can see.</p></div>
+                        <div class="step-card pub-step"><div class="step-num mb-3">1</div><h3 class="h6">Create your profile</h3><p class="text-muted-emp small mb-0">Add your skills, education and experience once. You control what employers can see.</p></div>
                     </div>
                     <div class="col-md-6 col-lg-3">
-                        <div class="step-card"><div class="step-num mb-3">2</div><h3 class="h6">Upload your CV</h3><p class="text-muted-emp small mb-0">Upload a PDF or DOCX and get clear feedback on structure, wording and missing keywords.</p></div>
+                        <div class="step-card pub-step"><div class="step-num mb-3">2</div><h3 class="h6">Upload your CV</h3><p class="text-muted-emp small mb-0">Upload a PDF or DOCX and get clear feedback on structure, wording and missing keywords.</p></div>
                     </div>
                     <div class="col-md-6 col-lg-3">
-                        <div class="step-card"><div class="step-num mb-3">3</div><h3 class="h6">Find &amp; apply</h3><p class="text-muted-emp small mb-0">Search jobs, save the ones you like and apply when you are signed in.</p></div>
+                        <div class="step-card pub-step"><div class="step-num mb-3">3</div><h3 class="h6">Find &amp; apply</h3><p class="text-muted-emp small mb-0">Search jobs, save the ones you like and apply when you are signed in.</p></div>
                     </div>
                     <div class="col-md-6 col-lg-3">
-                        <div class="step-card"><div class="step-num mb-3">4</div><h3 class="h6">Track progress</h3><p class="text-muted-emp small mb-0">See every application move from submitted to interview and offer, all in one place.</p></div>
+                        <div class="step-card pub-step"><div class="step-num mb-3">4</div><h3 class="h6">Track progress</h3><p class="text-muted-emp small mb-0">See every application move from submitted to interview and offer, all in one place.</p></div>
                     </div>
                 </div>
                 <div class="text-center mt-4">
@@ -148,18 +160,18 @@
             </div>
 
             <div class="tab-pane fade" id="pane-employers" role="tabpanel" aria-labelledby="tab-employers" tabindex="0">
-                <div class="row g-3">
+                <div class="row g-4">
                     <div class="col-md-6 col-lg-3">
-                        <div class="step-card"><div class="step-num mb-3">1</div><h3 class="h6">Set up your company</h3><p class="text-muted-emp small mb-0">Create a company profile so candidates can learn who you are before they apply.</p></div>
+                        <div class="step-card pub-step"><div class="step-num mb-3">1</div><h3 class="h6">Set up your company</h3><p class="text-muted-emp small mb-0">Create a company profile so candidates can learn who you are before they apply.</p></div>
                     </div>
                     <div class="col-md-6 col-lg-3">
-                        <div class="step-card"><div class="step-num mb-3">2</div><h3 class="h6">Post a vacancy</h3><p class="text-muted-emp small mb-0">Describe the role and mark must-have and nice-to-have skills. You can edit them any time.</p></div>
+                        <div class="step-card pub-step"><div class="step-num mb-3">2</div><h3 class="h6">Post a vacancy</h3><p class="text-muted-emp small mb-0">Describe the role and mark must-have and nice-to-have skills. You can edit them any time.</p></div>
                     </div>
                     <div class="col-md-6 col-lg-3">
-                        <div class="step-card"><div class="step-num mb-3">3</div><h3 class="h6">Review with evidence</h3><p class="text-muted-emp small mb-0">Each application comes with a match summary that shows where requirements are met or missing.</p></div>
+                        <div class="step-card pub-step"><div class="step-num mb-3">3</div><h3 class="h6">Review with evidence</h3><p class="text-muted-emp small mb-0">Each application comes with a match summary that shows where requirements are met or missing.</p></div>
                     </div>
                     <div class="col-md-6 col-lg-3">
-                        <div class="step-card"><div class="step-num mb-3">4</div><h3 class="h6">Decide &amp; schedule</h3><p class="text-muted-emp small mb-0">Move candidates through stages and book interviews. The final decision is always yours.</p></div>
+                        <div class="step-card pub-step"><div class="step-num mb-3">4</div><h3 class="h6">Decide &amp; schedule</h3><p class="text-muted-emp small mb-0">Move candidates through stages and book interviews. The final decision is always yours.</p></div>
                     </div>
                 </div>
                 <div class="text-center mt-4">
@@ -181,7 +193,7 @@
             <a href="{{ route('jobs.index') }}" class="btn btn-outline-navy">Browse all jobs <i class="bi bi-arrow-right ms-1"></i></a>
         </div>
 
-        <div class="row g-3">
+        <div class="row g-4">
             @foreach ($featuredJobs as $job)
                 <div class="col-lg-6">
                     @include('components.job-card', ['job' => $job])
@@ -217,15 +229,40 @@
             </div>
 
             <div class="col-lg-7">
-                <div class="ai-panel">
-                    <div class="fw-800 text-navy mb-3"><i class="bi bi-shield-lock text-orange me-1"></i> Your CV stays private</div>
-                    <div class="d-flex gap-3 mb-3">
-                        <div class="icon-tile"><i class="bi bi-cloud-arrow-up"></i></div>
-                        <div><div class="fw-800 text-navy">Upload once, reuse later</div><div class="text-muted-emp small">Keep your CV in your account and select it when you apply.</div></div>
+                <div class="cv-showcase" aria-hidden="true">
+                    <div class="cv-showcase-window">
+                        <div class="cv-showcase-topbar">
+                            <span class="cv-window-controls"><i></i><i></i><i></i></span>
+                            <span class="cv-showcase-label">EMPLOYRA <span>/</span> CV LIBRARY</span>
+                            <span class="cv-privacy"><i class="bi bi-lock-fill"></i> Private</span>
+                        </div>
+                        <div class="cv-showcase-body">
+                            <div class="cv-profile-row">
+                                <span class="cv-file-icon"><i class="bi bi-file-earmark-person"></i></span>
+                                <div>
+                                    <span class="cv-overline">YOUR CAREER TOOLKIT</span>
+                                    <strong>Your CV library</strong>
+                                    <span>Ready for the next opportunity</span>
+                                </div>
+                                <span class="cv-menu-icon"><i class="bi bi-three-dots"></i></span>
+                            </div>
+                            <div class="cv-document">
+                                <span class="cv-document-type">PDF</span>
+                                <div class="cv-document-copy">
+                                    <strong>Resume</strong>
+                                    <span>Saved in your private library</span>
+                                </div>
+                                <span class="cv-document-status"><i class="bi bi-check2-circle"></i> Saved</span>
+                            </div>
+                            <div class="cv-showcase-footer">
+                                <span><i class="bi bi-shield-check"></i> You choose what to share</span>
+                                <span><i class="bi bi-arrow-up-right"></i></span>
+                            </div>
+                        </div>
                     </div>
-                    <div class="d-flex gap-3">
-                        <div class="icon-tile green"><i class="bi bi-person-check"></i></div>
-                        <div><div class="fw-800 text-navy">You control access</div><div class="text-muted-emp small">A company can access only the CV you attach to an application.</div></div>
+                    <div class="cv-float-card">
+                        <span class="cv-float-icon"><i class="bi bi-person-check"></i></span>
+                        <span><strong>You're in control</strong><small>Your CV is shared only when you apply.</small></span>
                     </div>
                 </div>
             </div>
@@ -244,7 +281,7 @@
             </div>
         </div>
 
-        <div class="row g-3">
+        <div class="row g-4">
             <div class="col-md-6 col-lg-3">
                 <div class="pillar"><div class="icon-tile mb-3"><i class="bi bi-shield-lock"></i></div><h3 class="h6">Privacy first</h3><p class="text-muted-emp small mb-0">CVs and contact details are private by default. You decide who sees them.</p></div>
             </div>
@@ -272,7 +309,7 @@
             <a href="{{ route('companies.index') }}" class="btn btn-outline-navy">View all companies <i class="bi bi-arrow-right ms-1"></i></a>
         </div>
 
-        <div class="row g-3">
+        <div class="row g-4">
             @foreach ($featuredCompanies as $company)
                 <div class="col-md-6 col-lg-3">
                     @include('components.company-card', ['company' => $company])
@@ -286,7 +323,7 @@
 <section class="section pt-0">
     <div class="container">
         <div class="cta-band">
-            <div class="row align-items-center g-4 position-relative" style="z-index:1">
+            <div class="row align-items-center g-4 cta-content">
                 <div class="col-lg-7">
                     <h2 class="mb-2">Ready to find, hire and grow?</h2>
                     <p class="mb-0">Join as a candidate to store your CV and track applications, or as a company to post jobs and manage applicants.</p>

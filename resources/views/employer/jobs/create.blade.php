@@ -2,8 +2,11 @@
 @section('title', 'Post a job')
 
 @section('content')
-<nav aria-label="breadcrumb"><ol class="breadcrumb small"><li class="breadcrumb-item"><a href="{{ route('employer.jobs') }}">My jobs</a></li><li class="breadcrumb-item active">Post a job</li></ol></nav>
-<div class="page-head mb-4"><h1 class="page-title">Post a job</h1><p class="text-muted-emp mb-0">Clear requirements help us match the right candidates and explain every match.</p></div>
+<div class="page-banner">
+    <nav aria-label="breadcrumb"><ol class="breadcrumb small mb-2"><li class="breadcrumb-item"><a href="{{ route('employer.jobs') }}" class="text-white-50">My jobs</a></li><li class="breadcrumb-item active text-white" aria-current="page">Post a job</li></ol></nav>
+    <h1 class="page-title">Post a job</h1>
+    <p>Clear requirements help us match the right candidates and explain every match.</p>
+</div>
 
 <form action="{{ route('employer.jobs.store') }}" method="POST" class="needs-validation" novalidate>
     @csrf
@@ -15,8 +18,8 @@
     @endif
     <div class="row g-4">
         <div class="col-lg-8">
-            <div class="card-emp p-4 mb-4">
-                <h2 class="h5 mb-3">1. Job basics</h2>
+            <div class="card-emp p-3 p-md-4 mb-4">
+                <div class="d-flex align-items-center gap-3 mb-3"><div class="icon-tile"><i class="bi bi-briefcase"></i></div><div><h2 class="h5 mb-0">1. Job basics</h2></div></div>
                 <div class="row g-3">
                     <div class="col-12"><label class="form-label" for="title">Job title</label><input id="title" name="title" value="{{ old('title') }}" class="form-control @error('title') is-invalid @enderror" placeholder="e.g. PHP / Laravel Developer" required><div class="invalid-feedback">Please enter a job title.</div></div>
                     <div class="col-md-6"><label class="form-label" for="category">Category</label><select id="category" name="category" class="form-select">@foreach ($categories as $c)<option value="{{ $c }}" @selected(old('category') === $c)>{{ $c }}</option>@endforeach</select></div>
@@ -35,16 +38,15 @@
                 </div>
             </div>
 
-            <div class="card-emp p-4 mb-4">
-                <h2 class="h5 mb-3">2. About the role</h2>
+            <div class="card-emp p-3 p-md-4 mb-4">
+                <div class="d-flex align-items-center gap-3 mb-3"><div class="icon-tile"><i class="bi bi-card-text"></i></div><div><h2 class="h5 mb-0">2. About the role</h2></div></div>
                 <div class="mb-3"><label class="form-label" for="summary">Summary</label><textarea id="summary" name="summary" class="form-control" rows="3" placeholder="Two or three sentences about the role." required>{{ old('summary') }}</textarea></div>
                 <div class="mb-3"><label class="form-label" for="responsibilities">Responsibilities</label><textarea id="responsibilities" name="responsibilities" class="form-control" rows="4" placeholder="One responsibility per line.">{{ old('responsibilities') }}</textarea></div>
                 <div class="mb-0"><label class="form-label" for="benefits">Benefits</label><textarea id="benefits" name="benefits" class="form-control" rows="3" placeholder="One benefit per line.">{{ old('benefits') }}</textarea></div>
             </div>
 
-            <div class="card-emp p-4 mb-4">
-                <h2 class="h5 mb-1">3. Requirements</h2>
-                <p class="small text-muted-emp">These drive the match. Keep to what is truly needed.</p>
+            <div class="card-emp p-3 p-md-4 mb-4">
+                <div class="d-flex align-items-center gap-3 mb-3"><div class="icon-tile"><i class="bi bi-list-check"></i></div><div><h2 class="h5 mb-0">3. Requirements</h2><p class="small text-muted-emp mb-0">These drive the match. Keep to what is truly needed.</p></div></div><div class="mb-3"></div>
                 <div class="mb-3"><label class="form-label">Must-have skills</label>
                     <div class="tag-input" data-tag-input data-name="required_skills[]">
                         @foreach ((array) old('required_skills', []) as $skill)<span class="skill-chip">{{ $skill }}<input type="hidden" name="required_skills[]" value="{{ $skill }}"><button type="button" aria-label="Remove {{ $skill }}">&times;</button></span>@endforeach
@@ -61,13 +63,13 @@
                     <div class="col-md-6"><label class="form-label" for="min-experience">Minimum years of experience</label><input id="min-experience" name="min_experience_years" type="number" min="0" max="60" class="form-control" value="{{ old('min_experience_years', 0) }}"></div>
                     <div class="col-md-6"><label class="form-label" for="minimum-education">Minimum education</label><select id="minimum-education" name="minimum_education" class="form-select"><option value="">No requirement</option>@foreach (['OND / NCE', 'HND / B.Sc.', 'M.Sc.'] as $education)<option value="{{ $education }}" @selected(old('minimum_education') === $education)>{{ $education }}</option>@endforeach</select></div>
                 </div>
-                <div class="alert alert-info small mt-3 mb-0"><i class="bi bi-shield-check me-1"></i>Employra never scores candidates on age, gender, name, photo, tribe, religion or marital status. Please do not list them as requirements.</div>
+                <div class="alert alert-info small mt-4 mb-0"><i class="bi bi-shield-check me-1"></i>Employra never scores candidates on age, gender, name, photo, tribe, religion or marital status. Please do not list them as requirements.</div>
             </div>
         </div>
 
         <div class="col-lg-4">
             <div class="card-emp p-4 position-sticky" style="top: 90px;">
-                <h2 class="h6 mb-3">Publish</h2>
+                <h2 class="h6 mb-3"><i class="bi bi-send me-1 text-orange"></i>Publish</h2>
                 <div class="form-check form-switch mb-3"><input class="form-check-input" type="checkbox" name="notify_applicants" value="1" id="notify" @checked(old('notify_applicants', true))><label class="form-check-label" for="notify">Email me about new applicants</label></div>
                 <button class="btn btn-emp w-100 mb-2" name="status" value="open">Publish job</button>
                 <button class="btn btn-outline-navy w-100 mb-3" name="status" value="draft">Save as draft</button>

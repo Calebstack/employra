@@ -5,6 +5,7 @@
 @section('side_text', 'Sign in to continue your job search, track your applications or manage your vacancies.')
 
 @section('content')
+    <div class="eyebrow mb-2">Welcome back</div>
     <h1 class="h2 mb-1">Sign in</h1>
     <p class="text-muted-emp mb-4">New here? <a href="{{ route('register', array_filter(['redirect' => request('redirect')])) }}" class="fw-bold">Create a free account</a></p>
 
@@ -24,7 +25,7 @@
         </div>
 
         <div class="mb-3">
-            <div class="d-flex justify-content-between">
+            <div class="d-flex flex-wrap justify-content-between gap-1">
                 <label for="password" class="form-label">Password</label>
                 <a href="{{ route('password.request') }}" class="small fw-bold">Forgot password?</a>
             </div>

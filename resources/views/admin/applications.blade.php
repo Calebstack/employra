@@ -2,9 +2,9 @@
 @section('title', 'Applications')
 
 @section('content')
-<div class="page-head mb-4">
-    <h1 class="page-title">Applications</h1>
-    <p class="text-muted-emp mb-0">Applications submitted by candidate users to company job listings.</p>
+<div class="page-banner slate compact">
+    <h1 class="page-title h3">Applications</h1>
+    <p>Applications submitted by candidate users to company job listings.</p>
 </div>
 
 <div class="card-emp p-3 mb-3">

@@ -3,21 +3,20 @@
 
 @section('content')
 @php $a = $applicant; $labels = ['skills' => 'Required skills', 'experience' => 'Relevant experience', 'education' => 'Education & training', 'keywords' => 'Role keywords']; @endphp
-<nav aria-label="breadcrumb"><ol class="breadcrumb small">
-    <li class="breadcrumb-item"><a href="{{ route('employer.jobs') }}">My jobs</a></li>
-    <li class="breadcrumb-item"><a href="{{ route('employer.jobs.show', 1) }}">PHP / Laravel Developer</a></li>
-    <li class="breadcrumb-item active">{{ $a['name'] }}</li>
-</ol></nav>
-
-<div class="card-emp p-4 mb-4">
+<div class="page-banner">
+    <nav aria-label="breadcrumb"><ol class="breadcrumb small mb-3">
+        <li class="breadcrumb-item"><a href="{{ route('employer.jobs') }}" class="text-white-50">My jobs</a></li>
+        <li class="breadcrumb-item"><a href="{{ route('employer.jobs.show', 1) }}" class="text-white-50">PHP / Laravel Developer</a></li>
+        <li class="breadcrumb-item active text-white" aria-current="page">{{ $a['name'] }}</li>
+    </ol></nav>
     <div class="d-flex flex-wrap align-items-center gap-3">
         <div class="avatar lg" style="width:64px;height:64px;font-size:1.3rem;border:0;">{{ $a['initials'] }}</div>
         <div class="flex-grow-1">
-            <h1 class="h4 mb-1">{{ $a['name'] }}</h1>
-            <div class="text-muted-emp">{{ $a['headline'] }} · {{ $a['location'] }} · {{ $a['years'] }} years experience</div>
-            <div class="small text-muted-emp">{{ $a['email'] }} · Applied {{ $a['applied'] }}</div>
+            <h1 class="page-title mb-1">{{ $a['name'] }}</h1>
+            <div>{{ $a['headline'] }} · {{ $a['location'] }} · {{ $a['years'] }} years experience</div>
+            <div class="small">{{ $a['email'] }} · Applied {{ $a['applied'] }}</div>
         </div>
-        @include('employer.partials.app-status', ['status' => $a['status']])
+        <div>@include('employer.partials.app-status', ['status' => $a['status']])</div>
     </div>
 </div>
 
@@ -25,10 +24,10 @@
     <div class="col-lg-8">
         <div class="alert alert-info small"><i class="bi bi-info-circle me-1"></i>This match is a guide based only on skills, experience, education and keywords from the CV. It is not a hiring decision, and you can overrule it.</div>
 
-        <section class="card-emp p-4 mb-4">
+        <section class="card-emp p-3 p-md-4 mb-4">
             <div class="d-flex flex-wrap gap-4 align-items-center mb-3">
                 <div class="text-center"><div class="score-ring lg" style="--p: {{ $a['score'] }}"><span>{{ $a['score'] }}</span></div><div class="small fw-bold text-navy mt-2">{{ $a['tier'] }}</div></div>
-                <div class="flex-grow-1" style="min-width:240px;"><h2 class="h5">Why this score</h2><p class="mb-0">{{ $a['summary'] }}</p></div>
+                <div class="flex-grow-1" style="min-width:240px;"><h2 class="h5"><i class="bi bi-bullseye me-1 text-orange"></i>Why this score</h2><p class="mb-0">{{ $a['summary'] }}</p></div>
             </div>
             @foreach ($a['breakdown'] as $k => $v)
                 <div class="mb-3">
@@ -39,7 +38,7 @@
         </section>
 
         <section class="card-emp p-4 mb-4">
-            <h2 class="h5 mb-3">Evidence from the CV</h2>
+            <h2 class="h5 mb-3"><i class="bi bi-file-earmark-text me-1 text-orange"></i>Evidence from the CV</h2>
             <div class="fw-bold text-navy mb-2"><i class="bi bi-check-circle-fill text-success me-1"></i>Matches ({{ count($a['matched']) }})</div>
             @foreach ($a['matched'] as $m)<div class="evidence mb-2"><strong>{{ $m[0] }}</strong> <span class="small text-muted-emp">— {{ $m[1] }} ({{ $m[2] }})</span></div>@endforeach
             @if ($a['partial'])
@@ -54,21 +53,21 @@
         </section>
 
         <section class="card-emp p-4 mb-4">
-            <h2 class="h5 mb-3">Profile</h2>
+            <h2 class="h5 mb-3"><i class="bi bi-person-lines-fill me-1 text-orange"></i>Profile</h2>
             <div class="mb-3">@foreach ($a['skills'] as $s)<span class="skill-chip">{{ $s }}</span> @endforeach</div>
             @foreach ($a['experience'] as $e)<div class="entry"><div class="fw-bold text-navy">{{ $e['title'] }}</div><div class="small text-muted-emp">{{ $e['company'] }} · {{ $e['period'] }}</div><p class="small mb-0 mt-1">{{ $e['description'] }}</p></div>@endforeach
             @foreach ($a['education'] as $e)<div class="entry"><div class="fw-bold text-navy">{{ $e['degree'] }}</div><div class="small text-muted-emp">{{ $e['school'] }} · {{ $e['period'] }}</div></div>@endforeach
         </section>
 
         <section class="card-emp p-4">
-            <h2 class="h5 mb-2">Cover note</h2>
+            <h2 class="h5 mb-2"><i class="bi bi-chat-left-text me-1 text-orange"></i>Cover note</h2>
             <p class="mb-0">{{ $a['cover_note'] }}</p>
         </section>
     </div>
 
     <div class="col-lg-4">
         <div class="card-emp p-4 mb-4 position-sticky" style="top: 90px;">
-            <h2 class="h6 mb-3">Your decision</h2>
+            <h2 class="h6 mb-3"><i class="bi bi-clipboard-check me-1 text-orange"></i>Your decision</h2>
             @if ($a['status'] === 'Rejected')
                 <div class="alert alert-danger small">Declined · {{ $a['reject_reason'] ?? 'No reason recorded' }}</div>
                 <button class="btn btn-outline-navy w-100">Move back to Reviewing</button>

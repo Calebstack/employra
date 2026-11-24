@@ -4,7 +4,7 @@
 
 @section('content')
 
-<section class="page-head pb-4">
+<section class="page-head">
     <div class="container">
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
@@ -23,17 +23,18 @@
                 @endif
                 <div class="min-w-0">
                     <h1 class="h2 mb-1">{{ $job['title'] }}</h1>
-                    <a href="{{ route('companies.show', $job['company_slug']) }}" class="fw-bold">{{ $job['company'] }}</a>
+                    <a href="{{ route('companies.show', $job['company_slug']) }}" class="fw-bold text-white text-decoration-underline">{{ $job['company'] }}</a>
                     <div class="meta-row mt-2">
                         <span><i class="bi bi-geo-alt"></i>{{ $job['location'] }}</span>
                         <span><i class="bi bi-briefcase"></i>{{ $job['type'] }}</span>
                         <span><i class="bi bi-laptop"></i>{{ $job['mode'] }}</span>
                         <span><i class="bi bi-clock"></i>Posted {{ $job['posted'] }}</span>
                     </div>
+                    <div class="mt-2"><span class="badge-soft"><i class="bi bi-cash-coin"></i>{{ $job['salary'] }}</span></div>
                 </div>
             </div>
 
-            <div class="d-flex gap-2 flex-none">
+            <div class="d-flex flex-wrap gap-2 align-items-center flex-none">
                 <button type="button" class="save-btn" style="width:36px;height:36px" data-save="{{ $job['slug'] }}" aria-label="Save job" aria-pressed="false"><i class="bi bi-bookmark"></i></button>
                 @guest
                     <button type="button" class="btn btn-emp" data-bs-toggle="modal" data-bs-target="#applyModal">Apply now</button>
@@ -52,13 +53,13 @@
 
             {{-- ---------- Main column ---------- --}}
             <div class="col-lg-8">
-                <article class="card-emp p-4 mb-3">
-                    <h2 class="h5 mb-3">About the role</h2>
-                    <p class="mb-0">{{ $job['summary'] }}</p>
+                <article class="card-emp p-4 mb-4 pub-section-card">
+                    <h2 class="h5 mb-3"><i class="bi bi-info-circle me-2 text-blue" style="color:var(--emp-blue)"></i>About the role</h2>
+                    <p class="mb-0" style="line-height:1.75">{{ $job['summary'] }}</p>
                 </article>
 
-                <article class="card-emp p-4 mb-3">
-                    <h2 class="h5 mb-3">Responsibilities</h2>
+                <article class="card-emp p-4 mb-4 pub-section-card">
+                    <h2 class="h5 mb-3"><i class="bi bi-list-check me-2 text-blue" style="color:var(--emp-blue)"></i>Responsibilities</h2>
                     <ul class="detail-list nice list-unstyled mb-0">
                         @foreach ($job['responsibilities'] as $item)
                             <li>{{ $item }}</li>
@@ -66,10 +67,10 @@
                     </ul>
                 </article>
 
-                <article class="card-emp p-4 mb-3">
+                <article class="card-emp p-4 mb-4 pub-section-card">
                     <div class="row g-4">
                         <div class="col-md-6">
-                            <h2 class="h5 mb-3">Must-have</h2>
+                            <h2 class="h5 mb-3"><i class="bi bi-check2-circle me-2 text-blue" style="color:var(--emp-blue)"></i>Must-have</h2>
                             <ul class="detail-list list-unstyled mb-0">
                                 @foreach ($job['must'] as $item)
                                     <li>{{ $item }}</li>
@@ -77,7 +78,7 @@
                             </ul>
                         </div>
                         <div class="col-md-6">
-                            <h2 class="h5 mb-3">Nice-to-have</h2>
+                            <h2 class="h5 mb-3"><i class="bi bi-plus-circle me-2 text-blue" style="color:var(--emp-blue)"></i>Nice-to-have</h2>
                             <ul class="detail-list nice list-unstyled mb-0">
                                 @foreach ($job['nice'] as $item)
                                     <li>{{ $item }}</li>
@@ -87,8 +88,8 @@
                     </div>
                 </article>
 
-                <article class="card-emp p-4 mb-3">
-                    <h2 class="h5 mb-3">Skills</h2>
+                <article class="card-emp p-4 mb-4 pub-section-card">
+                    <h2 class="h5 mb-3"><i class="bi bi-stars me-2 text-blue" style="color:var(--emp-blue)"></i>Skills</h2>
                     <div class="d-flex flex-wrap gap-2">
                         @foreach ($job['skills'] as $skill)
                             <span class="skill-chip">{{ $skill }}</span>
@@ -96,8 +97,8 @@
                     </div>
                 </article>
 
-                <article class="card-emp p-4 mb-3">
-                    <h2 class="h5 mb-3">Benefits</h2>
+                <article class="card-emp p-4 mb-4 pub-section-card">
+                    <h2 class="h5 mb-3"><i class="bi bi-gift me-2 text-blue" style="color:var(--emp-blue)"></i>Benefits</h2>
                     <div class="d-flex flex-wrap gap-2">
                         @foreach ($job['benefits'] as $b)
                             <span class="badge-soft green"><i class="bi bi-check2 me-1"></i>{{ $b }}</span>
@@ -105,7 +106,7 @@
                     </div>
                 </article>
 
-                <div class="card-emp p-4 d-flex flex-column flex-sm-row align-items-sm-center justify-content-between gap-3" id="apply">
+                <div class="card-emp p-4 d-flex flex-column flex-sm-row align-items-sm-center justify-content-between gap-3 pub-apply-card" id="apply">
                     <div>
                         <h2 class="h5 mb-1">Interested in this role?</h2>
                         <p class="text-muted-emp mb-0">Apply before {{ $job['deadline'] }}. You will be asked to sign in so we can attach your profile and CV.</p>
@@ -121,9 +122,17 @@
 
             {{-- ---------- Sidebar ---------- --}}
             <aside class="col-lg-4">
-                <div class="card-emp p-4 mb-3">
+                <div class="pub-side-sticky">
+                <div class="card-emp p-4 mb-3 pub-apply-card">
+                    <div class="eyebrow mb-1">Salary</div>
+                    <div class="salary h4 mb-3">{{ $job['salary'] }}</div>
+                    @guest
+                        <button type="button" class="btn btn-emp btn-lg w-100 mb-3" data-bs-toggle="modal" data-bs-target="#applyModal">Apply now</button>
+                    @endguest
+                    @auth
+                        <a href="{{ route('jobs.apply', $job['slug']) }}" class="btn btn-emp btn-lg w-100 mb-3">Apply now</a>
+                    @endauth
                     <h2 class="h6 mb-2">Job summary</h2>
-                    <div class="summary-row"><span>Salary</span><span>{{ $job['salary'] }}</span></div>
                     <div class="summary-row"><span>Job type</span><span>{{ $job['type'] }}</span></div>
                     <div class="summary-row"><span>Work mode</span><span>{{ $job['mode'] }}</span></div>
                     <div class="summary-row"><span>Experience</span><span>{{ $job['level'] }}</span></div>
@@ -176,15 +185,16 @@
                         </form>
                     </details>
                 @endif
+                </div>
             </aside>
         </div>
 
         {{-- ---------- Similar jobs ---------- --}}
         <div class="mt-5">
             <h2 class="h4 mb-3">Similar jobs</h2>
-            <div class="row g-3">
+            <div class="row g-4">
                 @foreach ($similar as $s)
-                    <div class="col-lg-4">
+                    <div class="col-md-6 col-lg-4">
                         @include('components.job-card', ['job' => $s])
                     </div>
                 @endforeach

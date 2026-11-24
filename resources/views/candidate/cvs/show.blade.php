@@ -2,23 +2,24 @@
 @section('title', 'CV analysis')
 
 @section('content')
-<nav aria-label="breadcrumb"><ol class="breadcrumb small">
-    <li class="breadcrumb-item"><a href="{{ route('candidate.cvs') }}">My CVs</a></li>
-    <li class="breadcrumb-item active">Analysis</li>
-</ol></nav>
-
-<div class="d-flex flex-wrap justify-content-between align-items-end gap-2 mb-4">
-    <div>
-        <h1 class="page-title">CV analysis</h1>
-        <p class="text-muted-emp mb-0"><i class="bi bi-file-earmark-pdf me-1"></i>{{ $cv['filename'] }} · analyzed {{ $analysis['analyzed_at'] }}</p>
-    </div>
-    <div class="d-flex gap-2">
-        <a href="#" class="btn btn-outline-navy btn-sm"><i class="bi bi-arrow-repeat me-1"></i>Re-analyze</a>
-        <a href="{{ route('candidate.cvs') }}#upload" class="btn btn-emp btn-sm"><i class="bi bi-upload me-1"></i>Upload improved CV</a>
+<div class="page-banner cv-analysis-banner">
+    <nav aria-label="breadcrumb"><ol class="breadcrumb small mb-2">
+        <li class="breadcrumb-item"><a href="{{ route('candidate.cvs') }}" class="text-white-50">My CVs</a></li>
+        <li class="breadcrumb-item active text-white">Analysis</li>
+    </ol></nav>
+    <div class="d-flex flex-wrap justify-content-between align-items-center gap-3">
+        <div class="min-w-0">
+            <h1 class="page-title">CV analysis</h1>
+            <p class="text-break"><i class="bi bi-file-earmark-pdf me-1"></i>{{ $cv['filename'] }} · analyzed {{ $analysis['analyzed_at'] }}</p>
+        </div>
+        <div class="d-flex flex-wrap gap-2">
+            <a href="#" class="btn btn-outline-navy btn-sm"><i class="bi bi-arrow-repeat me-1"></i>Re-analyze</a>
+            <a href="{{ route('candidate.cvs') }}#upload" class="btn btn-emp btn-sm"><i class="bi bi-upload me-1"></i>Upload improved CV</a>
+        </div>
     </div>
 </div>
 
-<div class="alert alert-info small"><i class="bi bi-info-circle me-1"></i>This is guidance to help you improve your CV, not a verdict on you. Every point below shows why it was suggested, and you decide what to change.</div>
+<div class="alert alert-info cv-analysis-note" role="note"><i class="bi bi-info-circle me-2" aria-hidden="true"></i><span>This report is guidance, not a verdict on you. Every point explains why it was suggested, and you decide what to change.</span></div>
 
 <div class="row g-4">
     <div class="col-lg-3 d-none d-lg-block">
@@ -28,7 +29,7 @@
     </div>
 
     <div class="col-lg-9">
-        <section id="overview" class="card-emp p-4 mb-4">
+        <section id="overview" class="card-emp p-4 mb-4 analysis-overview">
             <div class="d-flex flex-wrap gap-4 align-items-center mb-3">
                 <div class="text-center">
                     <div class="score-ring lg" style="--p: {{ $analysis['readiness'] }}"><span>{{ $analysis['readiness'] }}</span></div>
@@ -49,8 +50,8 @@
             @endforeach
         </section>
 
-        <section id="extracted" class="card-emp p-4 mb-4">
-            <h2 class="h5">What we found in your CV</h2>
+        <section id="extracted" class="card-emp p-4 mb-4 analysis-panel">
+            <h2 class="h5"><i class="bi bi-search text-orange me-2"></i>What we found in your CV</h2>
             <p class="small text-muted-emp">Check this is right. If something is wrong, fix your CV or edit your profile.</p>
             <div class="fw-bold small text-navy mb-2">Skills</div>
             <div class="mb-3">@foreach ($analysis['extracted']['skills'] as $s)<span class="skill-chip">{{ $s }}</span> @endforeach</div>
@@ -60,8 +61,8 @@
             <ul class="small mb-0">@foreach ($analysis['extracted']['education'] as $e)<li>{{ $e }}</li>@endforeach</ul>
         </section>
 
-        <section id="strengths" class="card-emp p-4 mb-4">
-            <h2 class="h5 mb-3">Strengths</h2>
+        <section id="strengths" class="card-emp p-4 mb-4 analysis-panel">
+            <h2 class="h5 mb-3"><i class="bi bi-hand-thumbs-up text-orange me-2"></i>Strengths</h2>
             @foreach ($analysis['strengths'] as $s)
                 <div class="d-flex gap-3 mb-3">
                     <div class="icon-tile green"><i class="bi bi-check-lg"></i></div>
@@ -70,8 +71,8 @@
             @endforeach
         </section>
 
-        <section id="improve" class="card-emp p-4 mb-4">
-            <h2 class="h5 mb-3">What to improve</h2>
+        <section id="improve" class="card-emp p-4 mb-4 analysis-panel">
+            <h2 class="h5 mb-3"><i class="bi bi-wrench-adjustable text-orange me-2"></i>What to improve</h2>
             @foreach ($analysis['improvements'] as $i)
                 <div class="entry">
                     <div class="d-flex flex-wrap align-items-center gap-2 mb-1">
@@ -87,10 +88,10 @@
             @endforeach
         </section>
 
-        <section id="compare" class="card-emp p-4">
+        <section id="compare" class="card-emp p-4 analysis-panel">
             <div class="d-flex flex-wrap justify-content-between gap-2 mb-3">
                 <div>
-                    <h2 class="h5 mb-1">Compare with a job</h2>
+                    <h2 class="h5 mb-1"><i class="bi bi-intersect text-orange me-2"></i>Compare with a job</h2>
                     <p class="small text-muted-emp mb-0">See how your CV lines up with a job before you apply.</p>
                 </div>
                 <select class="form-select" style="max-width: 320px;" aria-label="Choose a job to compare">

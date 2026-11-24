@@ -42,6 +42,10 @@ class EmployraPreviewTest extends TestCase
             $response = $this->get($path);
             $this->assertSame(200, $response->status(), 'Candidate path: '.$path);
         }
+        $this->get('/candidate/cvs')
+            ->assertOk()
+            ->assertSee('data-cv-upload', false)
+            ->assertSee('data-upload-progress', false);
 
         $company = Company::create([
             'name' => 'BrightPath Technologies',

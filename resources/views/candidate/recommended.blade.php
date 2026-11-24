@@ -2,13 +2,13 @@
 @section('title', 'Recommended jobs')
 
 @section('content')
-<div class="page-head mb-4">
+<div class="page-banner compact">
     <h1 class="page-title">Open jobs</h1>
-    <p class="text-muted-emp mb-0">Recently posted verified-company jobs you have not applied to yet.</p>
+    <p>Recently posted verified-company jobs you have not applied to yet.</p>
 </div>
 
 @forelse ($jobs as $j)
-    <div class="card-emp p-4 mb-3">
+    <div class="card-emp job-card h-auto p-3 p-md-4 mb-3">
         <div class="d-flex flex-wrap gap-3">
             <div class="co-logo" style="background: {{ $j['company_color'] }}" aria-hidden="true">{{ $j['company_initials'] }}</div>
             <div class="flex-grow-1 min-w-0">

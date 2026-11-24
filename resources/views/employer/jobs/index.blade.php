@@ -2,15 +2,18 @@
 @section('title', 'My jobs')
 
 @section('content')
-<div class="page-head d-flex flex-wrap justify-content-between align-items-end gap-2 mb-4">
-    <div><h1 class="page-title">My jobs</h1><p class="text-muted-emp mb-0">Create, edit and close your job posts.</p></div>
-    <a href="{{ route('employer.jobs.create') }}" class="btn btn-emp"><i class="bi bi-plus-lg me-1"></i>Post a job</a>
+<div class="page-banner">
+    <div class="d-flex flex-wrap justify-content-between align-items-center gap-3">
+        <div><h1 class="page-title">My jobs</h1><p class="mb-0">Create, edit and close your job posts.</p></div>
+        <div class="d-flex flex-wrap gap-2"><a href="{{ route('employer.jobs.create') }}" class="btn btn-emp"><i class="bi bi-plus-lg me-1"></i>Post a job</a></div>
+    </div>
 </div>
 
-<div class="card-emp">
+<div class="card-emp overflow-visible">
     @forelse ($jobs as $j)
         <div class="p-3 p-md-4 d-flex flex-wrap align-items-center gap-3" style="{{ $loop->first ? '' : 'border-top:1px solid var(--emp-line);' }}">
-            <div class="flex-grow-1 min-w-0">
+            <div class="icon-tile d-none d-sm-flex"><i class="bi bi-briefcase"></i></div>
+            <div class="flex-grow-1 min-w-0" style="flex-basis:220px;">
                 <a href="{{ route('employer.jobs.show', $j['id']) }}" class="fw-bold text-navy text-decoration-none">{{ $j['title'] }}</a>
                 <div class="small text-muted-emp">{{ $j['location'] }} · {{ $j['mode'] }} · {{ $j['type'] }} · Posted {{ $j['posted'] }}</div>
             </div>
@@ -30,8 +33,9 @@
             </div>
         </div>
     @empty
-        <div class="p-4 text-center">
-            <h2 class="h5 text-navy">No jobs yet</h2>
+        <div class="empty-state">
+            <i class="bi bi-briefcase"></i>
+            <h2 class="h5 text-navy mt-2">No jobs yet</h2>
             <p class="small text-muted-emp">Post your first job to start receiving applications.</p>
             <a href="{{ route('employer.jobs.create') }}" class="btn btn-emp btn-sm">Post a job</a>
         </div>

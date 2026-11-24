@@ -2,10 +2,14 @@
 @section('title', 'Apply')
 
 @section('content')
-<nav aria-label="breadcrumb"><ol class="breadcrumb small">
-    <li class="breadcrumb-item"><a href="{{ route('jobs.show', $job['slug']) }}">{{ $job['title'] }}</a></li>
-    <li class="breadcrumb-item active">Apply</li>
-</ol></nav>
+<div class="page-banner compact">
+    <nav aria-label="breadcrumb"><ol class="breadcrumb small mb-2">
+        <li class="breadcrumb-item"><a href="{{ route('jobs.show', $job['slug']) }}" class="text-white-50">{{ $job['title'] }}</a></li>
+        <li class="breadcrumb-item active text-white">Apply</li>
+    </ol></nav>
+    <h1 class="page-title">Apply for {{ $job['title'] }}</h1>
+    <p>{{ $job['company'] }} · {{ $job['location'] }} · {{ $job['mode'] }}</p>
+</div>
 
 <div class="row g-4">
     <div class="col-lg-8">
@@ -13,7 +17,7 @@
             <div class="d-flex align-items-center gap-3">
                 <div class="co-logo" style="background: {{ $job['company_color'] }}" aria-hidden="true">{{ $job['company_initials'] }}</div>
                 <div>
-                    <h1 class="h4 mb-1">Apply for {{ $job['title'] }}</h1>
+                    <h2 class="h5 mb-1">{{ $job['title'] }}</h2>
                     <div class="text-muted-emp">{{ $job['company'] }} · {{ $job['location'] }} · {{ $job['mode'] }}</div>
                 </div>
             </div>
@@ -22,7 +26,7 @@
         <form action="{{ route('jobs.apply.submit', $job['slug']) }}" method="POST" class="needs-validation" novalidate>
             @csrf
             <div class="card-emp p-4 mb-4">
-                <h2 class="h5 mb-3">1. Your details</h2>
+                <h2 class="h5 mb-3"><span class="badge-soft me-2">1</span>Your details</h2>
                 <div class="row g-3">
                     <div class="col-md-6"><label class="form-label">Full name</label><input class="form-control" value="{{ $candidate['name'] }}" readonly></div>
                     <div class="col-md-6"><label class="form-label">Email</label><input type="email" class="form-control" value="{{ $candidate['email'] }}" readonly></div>
@@ -33,7 +37,7 @@
             </div>
 
             <div class="card-emp p-4 mb-4">
-                <h2 class="h5 mb-3">2. Choose your CV</h2>
+                <h2 class="h5 mb-3"><span class="badge-soft me-2">2</span>Choose your CV</h2>
                 @foreach ($cvs as $cv)
                     @if ($cv['status'] !== 'Failed')
                         <div class="form-check border rounded-3 p-3 ps-5 mb-2">
@@ -49,14 +53,14 @@
             </div>
 
             <div class="card-emp p-4 mb-4">
-                <h2 class="h5 mb-3">3. Cover note <span class="small text-muted-emp fw-normal">(optional)</span></h2>
+                <h2 class="h5 mb-3"><span class="badge-soft me-2">3</span>Cover note <span class="small text-muted-emp fw-normal">(optional)</span></h2>
                 <label class="form-label" for="cover">Tell {{ $job['company'] }} why you are a good fit</label>
                 <textarea id="cover" name="cover_note" class="form-control" rows="5" maxlength="1000" placeholder="Two or three short paragraphs are enough.">{{ old('cover_note') }}</textarea>
                 <div class="small text-muted-emp mt-1">Max 1000 characters.</div>
             </div>
 
             <div class="card-emp p-4 mb-4">
-                <h2 class="h5 mb-3">4. Quick questions</h2>
+                <h2 class="h5 mb-3"><span class="badge-soft me-2">4</span>Quick questions</h2>
                 <p class="mb-2"><strong>Availability:</strong> {{ $candidate['availability'] }}</p>
                 <p class="mb-0"><strong>Expected salary:</strong> {{ $candidate['expected_salary'] }}</p>
                 <div class="small text-muted-emp mt-2">These answers are saved from your profile. <a href="{{ route('candidate.profile') }}">Edit profile</a> before applying if they have changed.</div>
@@ -67,13 +71,13 @@
                 <label class="form-check-label small" for="consent">I confirm my details are correct and agree that {{ $job['company'] }} can see my profile and selected CV for this application.</label>
                 <div class="invalid-feedback">Please tick this box to continue.</div>
             </div>
-            <button class="btn btn-emp"><i class="bi bi-send me-1"></i>Submit application</button>
+            <button class="btn btn-emp btn-lg"><i class="bi bi-send me-1"></i>Submit application</button>
         </form>
     </div>
 
     <div class="col-lg-4">
         <div class="card-emp p-4 mb-4 position-sticky" style="top: 90px;">
-            <h2 class="h6 mb-3">Job requirements</h2>
+            <h2 class="h6 mb-3"><i class="bi bi-list-check text-orange me-2"></i>Job requirements</h2>
             <div class="small fw-bold text-navy mb-1">Skills this job asks for</div>
             <div class="mb-3">@foreach ($job['skills'] as $s)<span class="skill-chip">{{ $s }}</span> @endforeach</div>
             <div class="small text-muted-emp">Review the listed requirements and decide whether this role is right for you. No automated match score is used.</div>

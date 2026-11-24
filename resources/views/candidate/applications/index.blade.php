@@ -3,12 +3,14 @@
 
 @section('content')
 @php $stages = \App\Support\CandidateMockData::stages(); $filter = request('status', 'all'); @endphp
-<div class="page-head d-flex flex-wrap justify-content-between align-items-end gap-2 mb-4">
-    <div>
-        <h1 class="page-title">My applications</h1>
-        <p class="text-muted-emp mb-0">Track every application and see what happens next.</p>
+<div class="page-banner compact">
+    <div class="d-flex flex-wrap justify-content-between align-items-center gap-3">
+        <div>
+            <h1 class="page-title">My applications</h1>
+            <p>Track every application and see what happens next.</p>
+        </div>
+        <a href="{{ route('jobs.index') }}" class="btn btn-emp"><i class="bi bi-search me-1"></i>Find more jobs</a>
     </div>
-    <a href="{{ route('jobs.index') }}" class="btn btn-emp"><i class="bi bi-search me-1"></i>Find more jobs</a>
 </div>
 
 <ul class="nav nav-pills-emp mb-3 flex-nowrap overflow-auto">
@@ -31,7 +33,8 @@
                 <div class="small text-muted-emp mt-1">Updated {{ $a['updated'] }}</div>
             </div>
         </div>
-        <div class="stage-track mt-3 {{ $a['is_closed'] ? 'closed' : '' }}" aria-hidden="true">
+        <div class="d-flex justify-content-between small text-muted-emp mt-3 mb-1"><span>Progress</span><span>{{ $a['status'] }}</span></div>
+        <div class="stage-track {{ $a['is_closed'] ? 'closed' : '' }}" aria-hidden="true">
             @foreach ($stages as $i => $s)
                 <span class="{{ $a['is_closed'] ? ($i < 2 ? 'on' : '') : ($idx !== false && $i <= $idx ? 'on' : '') }}"></span>
             @endforeach

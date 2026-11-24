@@ -5,15 +5,21 @@
 @php
     $upcoming = collect($applications)->first(fn ($application) => $application['interview'] && $application['interview']['respondable']);
 @endphp
-<div class="page-head d-flex flex-wrap justify-content-between align-items-end gap-2 mb-4">
-    <div>
-        <h1 class="page-title">Welcome back, {{ $candidate['first_name'] }} 👋</h1>
-        <p class="text-muted-emp mb-0">Here is what is happening with your job search today.</p>
+<div class="page-banner dashboard-banner candidate-dashboard-banner">
+    <div class="d-flex flex-wrap justify-content-between align-items-center gap-3">
+        <div>
+            <div class="small fw-bold text-uppercase mb-1" style="letter-spacing:.08em; opacity:.8;">Candidate dashboard</div>
+            <h1 class="page-title">Welcome back, {{ $candidate['first_name'] }}</h1>
+            <p>Here is what is happening with your job search today.</p>
+        </div>
+        <div class="d-flex flex-wrap gap-2">
+            <a href="{{ route('jobs.index') }}" class="btn btn-emp"><i class="bi bi-search me-1"></i>Find jobs</a>
+            <a href="{{ route('candidate.applications') }}" class="btn btn-outline-navy">My applications</a>
+        </div>
     </div>
-    <a href="{{ route('jobs.index') }}" class="btn btn-emp"><i class="bi bi-search me-1"></i>Find jobs</a>
 </div>
 
-<div class="row g-3 mb-4">
+<div class="row g-3 g-lg-4 mb-4">
     @foreach ([
         ['send', 'Applications', count($applications), ''],
         ['calendar-check', 'Upcoming interviews', collect($applications)->filter(fn ($application) => $application['interview'] && $application['interview']['respondable'])->count(), 'orange'],
@@ -32,7 +38,7 @@
 <div class="row g-4">
     <div class="col-lg-8">
         @if ($upcoming)
-            <div class="card-emp p-4 mb-4" style="border-left: 4px solid var(--emp-orange);">
+            <div class="card-emp p-4 mb-4 interview-highlight">
                 <div class="d-flex flex-wrap justify-content-between gap-3">
                     <div>
                         <span class="badge-soft orange mb-2"><i class="bi bi-calendar-check me-1"></i>Upcoming interview</span>
@@ -44,11 +50,12 @@
             </div>
         @endif
 
-        <div class="card-emp p-4 mb-4">
-            <div class="d-flex justify-content-between align-items-center mb-3">
-                <h2 class="h5 mb-0">Recent applications</h2>
+        <div class="card-emp mb-4">
+            <div class="card-head">
+                <h2 class="h5 mb-0"><i class="bi bi-kanban text-orange me-2"></i>Recent applications</h2>
                 <a href="{{ route('candidate.applications') }}" class="small fw-bold">View all</a>
             </div>
+            <div class="px-4 pb-2">
             @forelse (array_slice($applications, 0, 4) as $a)
                 <a href="{{ route('candidate.applications.show', $a['id']) }}" class="d-flex align-items-center gap-3 py-3 text-decoration-none" style="border-top:1px solid var(--emp-line);">
                     <div class="co-logo" style="background: {{ $a['company_color'] }}" aria-hidden="true">{{ $a['company_initials'] }}</div>
@@ -59,15 +66,17 @@
                     @include('components.status-badge', ['status' => $a['status']])
                 </a>
             @empty
-                <p class="small text-muted-emp mb-0">Your submitted applications and their progress will appear here.</p>
+                <p class="small text-muted-emp py-3 mb-0">Your submitted applications and their progress will appear here.</p>
             @endforelse
+            </div>
         </div>
 
-        <div class="card-emp p-4">
-            <div class="d-flex justify-content-between align-items-center mb-3">
-                <h2 class="h5 mb-0">Recently posted jobs</h2>
+        <div class="card-emp">
+            <div class="card-head">
+                <h2 class="h5 mb-0"><i class="bi bi-briefcase text-orange me-2"></i>Recently posted jobs</h2>
                 <a href="{{ route('candidate.recommended') }}" class="small fw-bold">Browse more</a>
             </div>
+            <div class="px-4 pb-2">
             @forelse (array_slice($recentJobs, 0, 3) as $j)
                 <a href="{{ route('jobs.show', $j['slug']) }}" class="d-flex align-items-center gap-3 py-3 text-decoration-none" style="border-top:1px solid var(--emp-line);">
                     <div class="co-logo" style="background: {{ $j['company_color'] }}" aria-hidden="true">{{ $j['company_initials'] }}</div>
@@ -77,14 +86,15 @@
                     </div>
                 </a>
             @empty
-                <p class="small text-muted-emp mb-0">No additional open jobs are available right now.</p>
+                <p class="small text-muted-emp py-3 mb-0">No additional open jobs are available right now.</p>
             @endforelse
+            </div>
         </div>
     </div>
 
     <div class="col-lg-4">
         <div class="card-emp p-4 mb-4">
-            <h2 class="h6 mb-3">Profile strength</h2>
+            <h2 class="h6 mb-3"><i class="bi bi-person-check text-orange me-2"></i>Profile strength</h2>
             <div class="d-flex justify-content-between small fw-bold mb-1"><span>{{ $candidate['completion'] }}% complete</span><span class="text-orange">Profile strength</span></div>
             <div class="progress-emp mb-3"><span style="width: {{ $candidate['completion'] }}%"></span></div>
             <ul class="list-unstyled small mb-3">
@@ -96,7 +106,7 @@
         </div>
 
         <div class="card-emp p-4 mb-4">
-            <h2 class="h6 mb-3">Your saved CVs</h2>
+            <h2 class="h6 mb-3"><i class="bi bi-file-earmark-text text-orange me-2"></i>Your saved CVs</h2>
             @forelse (array_slice($cvs, 0, 3) as $cv)
                 <div class="small d-flex justify-content-between gap-2 mb-2"><span class="text-truncate">{{ $cv['filename'] }}</span><a href="{{ $cv['download_url'] }}">Download</a></div>
             @empty

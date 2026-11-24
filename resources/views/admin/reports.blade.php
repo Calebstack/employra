@@ -3,7 +3,10 @@
 
 @section('content')
 @php $status = request('status', 'all'); @endphp
-<div class="page-head mb-4"><h1 class="page-title">Reports</h1><p class="text-muted-emp mb-0">Concerns raised by users and by our own checks. Always hear both sides before acting.</p></div>
+<div class="page-banner slate compact">
+    <h1 class="page-title h3">Reports</h1>
+    <p>Concerns raised by users and by our own checks. Always hear both sides before acting.</p>
+</div>
 
 <ul class="nav nav-pills-emp mb-3 flex-nowrap overflow-auto">
     @foreach (['all' => 'All', 'open' => 'Open', 'actioned' => 'Actioned', 'dismissed' => 'Dismissed'] as $k => $l)
@@ -12,18 +15,18 @@
 </ul>
 
 @forelse ($reports as $r)
-    <div class="card-emp p-4 mb-3" style="{{ $r['status'] === 'Open' && $r['severity'] === 'High' ? 'border-left:4px solid #e5484d;' : '' }}">
+    <div class="card-emp p-3 p-md-4 mb-3" style="{{ $r['status'] === 'Open' && $r['severity'] === 'High' ? 'border-left:4px solid #e5484d;' : '' }}">
         <div class="d-flex flex-wrap justify-content-between gap-2">
             <div>
                 <span class="badge-soft">{{ $r['type'] }}</span> <span class="sev {{ strtolower($r['severity']) }} ms-1">{{ $r['severity'] }}</span>
                 <div class="fw-bold text-navy mt-2">{{ $r['target'] }}</div>
                 <div class="small text-muted-emp">Reason: {{ $r['reason'] }} · Reported by {{ $r['by'] }} · {{ $r['when'] }}</div>
             </div>
-            <span class="status {{ $r['status'] === 'Open' ? 'interview' : ($r['status'] === 'Dismissed' ? 'closed' : 'offer') }}">{{ $r['status'] }}</span>
+            <span class="status align-self-start {{ $r['status'] === 'Open' ? 'interview' : ($r['status'] === 'Dismissed' ? 'closed' : 'offer') }}">{{ $r['status'] }}</span>
         </div>
         <div class="example-box">{{ $r['detail'] }}</div>
         @if ($r['status'] === 'Open')
-            <div class="d-flex flex-wrap gap-2 mt-3">
+            <div class="d-flex flex-wrap gap-2 mt-3 pt-3 border-top">
                 <form method="POST" action="{{ route('admin.reports.action', $r['id']) }}" class="d-flex flex-wrap gap-2">
                     @csrf
                     <input type="text" name="resolution_note" class="form-control form-control-sm" maxlength="2000" placeholder="Action note (optional)" aria-label="Moderation action note">

@@ -135,9 +135,43 @@ class AuthenticationTest extends TestCase
         ])->assertRedirect(route('jobs.index'))->assertSessionHas('status', 'You are now signed in.');
 
         $this->assertAuthenticatedAs($user);
+        $this->get(route('jobs.index'))
+            ->assertOk()
+            ->assertSee('Welcome back, '.$user->name.'.')
+            ->assertSee('Your job search and application updates are ready.')
+            ->assertDontSee('You are now signed in.');
 
         $this->post(route('logout'))->assertRedirect(route('home'));
         $this->assertGuest();
+    }
+
+    public function test_admin_logout_redirects_to_the_public_homepage(): void
+    {
+        $admin = Admin::create([
+            'name' => 'Admin User',
+            'email' => 'admin@example.com',
+            'password' => 'SecurePass123',
+            'status' => 'active',
+        ]);
+
+        $this->post(route('login.submit'), [
+            'email' => 'admin@example.com',
+            'password' => 'SecurePass123',
+        ])->assertRedirect(route('admin.dashboard'));
+
+        $this->get(route('admin.dashboard'))
+            ->assertOk()
+            ->assertSee('Welcome back, Admin User.')
+            ->assertSee('Your administration workspace is ready.')
+            ->assertDontSee('You are now signed in.');
+
+        $this->post(route('logout'))
+            ->assertRedirect(route('home'));
+
+        $this->assertGuest('admin');
+        $this->get(route('home'))
+            ->assertOk()
+            ->assertSee('Find the right job.');
     }
 
     public function test_login_sends_incomplete_candidates_to_onboarding(): void

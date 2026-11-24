@@ -6,7 +6,7 @@
 
 <section class="bg-soft pb-2">
     <div class="container pt-4">
-        <nav aria-label="breadcrumb">
+        <nav aria-label="breadcrumb" class="mb-3">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="{{ route('home') }}">Home</a></li>
                 <li class="breadcrumb-item"><a href="{{ route('companies.index') }}">Companies</a></li>
@@ -33,7 +33,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="d-flex gap-2 pt-md-3">
+                    <div class="d-flex flex-wrap gap-2 pt-md-3">
                         <a href="#open-roles" class="btn btn-emp">See open roles ({{ count($jobs) }})</a>
                         @if (!empty($company['website']))
                             <a href="{{ \Illuminate\Support\Str::startsWith($company['website'], ['http://', 'https://']) ? $company['website'] : 'https://'.$company['website'] }}" target="_blank" rel="noopener noreferrer" class="btn btn-outline-navy"><i class="bi bi-box-arrow-up-right me-1"></i>Website</a>
@@ -45,17 +45,17 @@
     </div>
 </section>
 
-<section class="section-sm bg-soft">
+<section class="section-sm bg-soft pt-4">
     <div class="container">
         <div class="row g-4">
             <div class="col-lg-8">
-                <article class="card-emp p-4 mb-3">
-                    <h2 class="h5 mb-3">About {{ $company['name'] }}</h2>
-                    <p class="mb-0">{{ $company['about'] }}</p>
+                <article class="card-emp p-4 mb-4">
+                    <h2 class="h5 mb-3"><i class="bi bi-info-circle me-2" style="color:var(--emp-blue)"></i>About {{ $company['name'] }}</h2>
+                    <p class="mb-0" style="line-height:1.75">{{ $company['about'] }}</p>
                 </article>
 
                 <div id="open-roles">
-                    <h2 class="h5 mb-3">Open roles <span class="badge-soft ms-1">{{ count($jobs) }}</span></h2>
+                    <h2 class="h5 mb-3"><i class="bi bi-briefcase me-2" style="color:var(--emp-blue)"></i>Open roles <span class="badge-soft ms-1">{{ count($jobs) }}</span></h2>
 
                     @forelse ($jobs as $job)
                         <div class="mb-3">
@@ -74,6 +74,7 @@
             </div>
 
             <aside class="col-lg-4">
+                <div class="pub-side-sticky">
                 <div class="card-emp p-4 mb-3">
                     <h2 class="h6 mb-2">Company details</h2>
                     <div class="summary-row"><span>Industry</span><span>{{ $company['industry'] }}</span></div>
@@ -108,6 +109,7 @@
                     <div class="fw-800 text-navy mb-1">Want to work here?</div>
                     <p class="small text-muted-emp mb-3">Create a free profile and apply with a CV you have already checked.</p>
                     <a href="{{ route('register', ['role' => 'candidate']) }}" class="btn btn-emp w-100">Create a free account</a>
+                </div>
                 </div>
             </aside>
         </div>

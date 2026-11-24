@@ -266,7 +266,7 @@ Route::view('/forgot-password', 'public.auth.forgot-password')->name('password.r
 
 Route::post('/login', [LoginController::class, 'store'])->middleware(['guest', 'throttle:login'])->name('login.submit');
 Route::post('/register', [RegisterController::class, 'store'])->middleware(['guest', 'throttle:10,60'])->name('register.submit');
-Route::post('/logout', [LogoutController::class, 'destroy'])->middleware('auth')->name('logout');
+Route::post('/logout', [LogoutController::class, 'destroy'])->middleware('auth:web,company,admin')->name('logout');
 Route::post('/forgot-password', fn (Request $request) => back()->withInput($request->except('email'))->with('status', 'Password reset is not available yet.')->with('status_type', 'warning'))->name('password.email');
 
 

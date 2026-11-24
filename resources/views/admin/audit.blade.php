@@ -3,9 +3,9 @@
 
 @section('content')
 @php $type = request('type', 'all'); $range = request('range', '30'); @endphp
-<div class="page-head d-flex flex-wrap justify-content-between align-items-end gap-2 mb-4">
-    <div><h1 class="page-title">Admin activity</h1><p class="text-muted-emp mb-0">A record of company, job, report, user, and settings actions made by administrators.</p></div>
-    <a href="{{ route('admin.audit.export', request()->query()) }}" class="btn btn-outline-navy btn-sm"><i class="bi bi-download me-1"></i>Export log</a>
+<div class="page-banner slate compact d-flex flex-wrap justify-content-between align-items-center gap-3">
+    <div><h1 class="page-title h3">Admin activity</h1><p>A record of company, job, report, user, and settings actions made by administrators.</p></div>
+    <div class="d-flex flex-wrap gap-2"><a href="{{ route('admin.audit.export', request()->query()) }}" class="btn btn-outline-navy btn-sm"><i class="bi bi-download me-1"></i>Export log</a></div>
 </div>
 
 <div class="row g-3 mb-4">
@@ -14,9 +14,9 @@
     @endforeach
 </div>
 
-<div class="alert alert-info small"><i class="bi bi-shield-check me-1"></i>This log contains only actions recorded after admin activity logging was enabled; it does not invent or display sample AI decisions.</div>
+<div class="alert alert-info small mb-3"><i class="bi bi-shield-check me-1"></i>This log contains only actions recorded after admin activity logging was enabled; it does not invent or display sample AI decisions.</div>
 
-<div class="card-emp p-3 mb-3 d-flex flex-wrap gap-2 align-items-center justify-content-between">
+<div class="card-emp p-3 mb-3 d-flex flex-wrap gap-3 align-items-center justify-content-between">
     <ul class="nav nav-pills-emp mb-0 flex-nowrap overflow-auto">
         @foreach (['all' => 'Everything', 'companies' => 'Companies', 'jobs' => 'Jobs', 'reports' => 'Reports', 'users' => 'Users', 'settings' => 'Settings', 'admins' => 'Admins'] as $key => $label)
             <li class="nav-item"><a class="nav-link {{ $type === $key ? 'active' : '' }}" href="{{ route('admin.audit', ['type' => $key, 'range' => $range]) }}">{{ $label }}</a></li>
@@ -35,7 +35,7 @@
 
 <div class="card-emp overflow-hidden">
     <div class="table-responsive">
-    <table class="table table-emp align-middle">
+    <table class="table table-emp align-middle mb-0">
         <thead><tr><th class="ps-4">When</th><th>Admin</th><th>Action</th><th>Target</th><th>Details</th></tr></thead>
         <tbody>
         @forelse ($audit as $a)

@@ -2,12 +2,12 @@
 @section('title', 'Job details')
 
 @section('content')
-<div class="page-head mb-4">
-    <a href="{{ route('admin.jobs') }}" class="small fw-bold text-decoration-none"><i class="bi bi-arrow-left me-1"></i>Back to jobs</a>
+<div class="page-banner slate">
+    <a href="{{ route('admin.jobs') }}" class="small fw-bold text-decoration-none text-white-50"><i class="bi bi-arrow-left me-1"></i>Back to jobs</a>
     <div class="d-flex flex-wrap justify-content-between align-items-start gap-3 mt-3">
         <div>
-            <h1 class="page-title mb-1">{{ $job->title }}</h1>
-            <p class="text-muted-emp mb-0">{{ $job->company->name }} · {{ $job->category }}</p>
+            <h1 class="page-title h3 mb-1">{{ $job->title }}</h1>
+            <p>{{ $job->company->name }} · {{ $job->category }}</p>
         </div>
         <span class="status {{ $job->status === 'open' ? 'offer' : 'closed' }}">{{ ucfirst(str_replace('_', ' ', $job->status)) }}</span>
     </div>
@@ -15,9 +15,10 @@
 
 <div class="row g-4">
     <div class="col-lg-8">
-        <section class="card-emp p-4 mb-4">
-            <h2 class="h5 mb-3">Job details</h2>
-            <dl class="row mb-0">
+        <section class="card-emp mb-4">
+    <div class="card-head"><h2 class="h6 mb-0">Job details</h2></div>
+    <div class="p-4">
+<dl class="row mb-0">
                 <dt class="col-sm-4 text-muted-emp">Company</dt><dd class="col-sm-8"><a href="{{ route('admin.companies.show', $job->company) }}">{{ $job->company->name }}</a></dd>
                 <dt class="col-sm-4 text-muted-emp">Company account</dt><dd class="col-sm-8">{{ $job->company->contact_name ?: $job->company->name }} ({{ $job->company->email ?: 'No email provided' }})</dd>
                 <dt class="col-sm-4 text-muted-emp">Location</dt><dd class="col-sm-8">{{ $job->location }} · {{ $job->work_mode }}</dd>
@@ -32,18 +33,24 @@
                 <dt class="col-sm-4 text-muted-emp">Posted</dt><dd class="col-sm-8">{{ $job->created_at?->format('j M Y, H:i') ?? 'Not available' }}</dd>
                 <dt class="col-sm-4 text-muted-emp">Last updated</dt><dd class="col-sm-8">{{ $job->updated_at?->format('j M Y, H:i') ?? 'Not available' }}</dd>
             </dl>
-        </section>
-        <section class="card-emp p-4 mb-4">
-            <h2 class="h5 mb-3">Summary</h2>
-            <p class="mb-0">{{ $job->summary }}</p>
-        </section>
-        <section class="card-emp p-4 mb-4">
-            <h2 class="h5 mb-3">Responsibilities</h2>
-            <p class="mb-0 text-break">{{ $job->responsibilities ?: 'Not provided' }}</p>
-        </section>
-        <section class="card-emp p-4 mb-4">
-            <h2 class="h5 mb-3">Required skills</h2>
-            @if ($job->required_skills)
+    </div>
+</section>
+        <section class="card-emp mb-4">
+    <div class="card-head"><h2 class="h6 mb-0">Summary</h2></div>
+    <div class="p-4">
+<p class="mb-0">{{ $job->summary }}</p>
+    </div>
+</section>
+        <section class="card-emp mb-4">
+    <div class="card-head"><h2 class="h6 mb-0">Responsibilities</h2></div>
+    <div class="p-4">
+<p class="mb-0 text-break">{{ $job->responsibilities ?: 'Not provided' }}</p>
+    </div>
+</section>
+        <section class="card-emp mb-4">
+    <div class="card-head"><h2 class="h6 mb-0">Required skills</h2></div>
+    <div class="p-4">
+@if ($job->required_skills)
                 <ul class="mb-0">@foreach ($job->required_skills as $skill)<li>{{ $skill }}</li>@endforeach</ul>
             @else
                 <p class="mb-0">Not provided</p>
@@ -54,19 +61,23 @@
             @else
                 <p class="mb-0">Not provided</p>
             @endif
-        </section>
-        <section class="card-emp p-4 mb-4">
-            <h2 class="h5 mb-3">Benefits</h2>
-            <p class="mb-0 text-break">{{ $job->benefits ?: 'Not provided' }}</p>
-        </section>
+    </div>
+</section>
+        <section class="card-emp mb-4">
+    <div class="card-head"><h2 class="h6 mb-0">Benefits</h2></div>
+    <div class="p-4">
+<p class="mb-0 text-break">{{ $job->benefits ?: 'Not provided' }}</p>
+    </div>
+</section>
         @if ($job->moderation_note)
             <div class="alert alert-warning"><strong>Moderation note:</strong> {{ $job->moderation_note }}</div>
         @endif
     </div>
     <div class="col-lg-4">
-        <section class="card-emp p-4">
-            <h2 class="h5 mb-3">Administration</h2>
-            @if ($job->status === 'open')
+        <section class="card-emp">
+    <div class="card-head"><h2 class="h6 mb-0">Administration</h2></div>
+    <div class="p-4">
+@if ($job->status === 'open')
                 <a href="{{ route('jobs.show', $job->slug) }}" class="btn btn-outline-navy w-100 mb-2">View public listing</a>
                 <form method="POST" action="{{ route('admin.jobs.take-down', $job) }}">
                     @csrf
@@ -82,7 +93,8 @@
             @else
                 <p class="small text-muted-emp mb-0">This job is not currently published.</p>
             @endif
-        </section>
+    </div>
+</section>
     </div>
 </div>
 @endsection

@@ -109,6 +109,28 @@ document.addEventListener('DOMContentLoaded', function () {
     fileInput.addEventListener('change', function () { out.textContent = fileInput.files[0] ? fileInput.files[0].name : ''; });
     ['dragenter', 'dragover'].forEach(function (e) { label.addEventListener(e, function () { label.classList.add('dragover'); }); });
     ['dragleave', 'drop'].forEach(function (e) { label.addEventListener(e, function () { label.classList.remove('dragover'); }); });
+
+    var uploadForm = fileInput.closest('[data-cv-upload]');
+    if (uploadForm) {
+      uploadForm.addEventListener('submit', function () {
+        if (!fileInput.files.length || uploadForm.dataset.submitting === 'true') return;
+
+        uploadForm.dataset.submitting = 'true';
+        uploadForm.setAttribute('aria-busy', 'true');
+
+        var progress = uploadForm.querySelector('[data-upload-progress]');
+        var submitButton = uploadForm.querySelector('button[type="submit"]');
+        var submitLabel = uploadForm.querySelector('[data-submit-label]');
+        var submitIcon = uploadForm.querySelector('[data-submit-icon]');
+        var submitSpinner = uploadForm.querySelector('[data-submit-spinner]');
+
+        if (progress) progress.hidden = false;
+        if (submitButton) submitButton.disabled = true;
+        if (submitLabel) submitLabel.textContent = 'Uploading CV...';
+        if (submitIcon) submitIcon.classList.add('d-none');
+        if (submitSpinner) submitSpinner.classList.remove('d-none');
+      });
+    }
   }
 
   document.querySelectorAll('[data-add-onboarding-row]').forEach(function (button) {

@@ -15,7 +15,7 @@
     <link rel="stylesheet" href="{{ asset('css/employra.css') }}">
     @stack('styles')
 </head>
-<body class="app-body">
+<body class="app-body admin-body">
     <a class="visually-hidden-focusable position-absolute p-2 bg-white" href="#main">Skip to content</a>
 
     <div class="app-shell">

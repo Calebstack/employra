@@ -19,7 +19,8 @@
                 <li class="breadcrumb-item active" aria-current="page">Find Jobs</li>
             </ol>
         </nav>
-        <h1 class="h2 mb-3">Find your next job</h1>
+        <h1 class="h2 mb-1">Find your next job</h1>
+        <p class="mb-3">Browse open roles from verified employers across Nigeria.</p>
 
         <form action="{{ route('jobs.index') }}" method="GET" class="search-card" role="search">
             {{-- keep the sidebar filters when searching again --}}
@@ -74,11 +75,11 @@
                         <input type="hidden" name="location" value="{{ request('location') }}">
 
                         <div class="d-flex justify-content-between align-items-center mb-3">
-                            <h2 class="h6 mb-0 text-navy">Filters</h2>
+                            <h2 class="h6 mb-0 text-navy"><i class="bi bi-sliders me-2 text-blue"></i>Filters</h2>
                             <a href="{{ route('jobs.index') }}" class="small fw-bold">Clear all</a>
                         </div>
 
-                        <div class="mb-4">
+                        <div class="pub-filter-group">
                             <h6>Nigerian state</h6>
                             <label for="f-state" class="visually-hidden">Nigerian state</label>
                             <select id="f-state" name="state" class="form-select">
@@ -90,7 +91,7 @@
                             <div class="form-text">Remote jobs are included for every state.</div>
                         </div>
 
-                        <div class="mb-4">
+                        <div class="pub-filter-group">
                             <h6>Category</h6>
                             <label for="f-category" class="visually-hidden">Category</label>
                             <select id="f-category" name="category" class="form-select">
@@ -101,7 +102,7 @@
                             </select>
                         </div>
 
-                        <div class="mb-4">
+                        <div class="pub-filter-group">
                             <h6>Job type</h6>
                             @foreach ($types as $t)
                                 <div class="form-check mb-1">
@@ -111,7 +112,7 @@
                             @endforeach
                         </div>
 
-                        <div class="mb-4">
+                        <div class="pub-filter-group">
                             <h6>Work mode</h6>
                             @foreach ($modes as $m)
                                 <div class="form-check mb-1">
@@ -121,7 +122,7 @@
                             @endforeach
                         </div>
 
-                        <div class="mb-4">
+                        <div class="pub-filter-group">
                             <h6>Monthly salary (NGN)</h6>
                             <div class="mb-3">
                                 <label class="form-label d-flex justify-content-between" for="f-salary-min">
@@ -140,7 +141,7 @@
                             <div class="form-text">Drag to adjust. Jobs with overlapping salary ranges are shown.</div>
                         </div>
 
-                        <div class="mb-4">
+                        <div class="pub-filter-group">
                             <h6>Experience level</h6>
                             <label for="f-level" class="visually-hidden">Experience level</label>
                             <select id="f-level" name="level" class="form-select">

@@ -14,7 +14,7 @@
     <link rel="stylesheet" href="{{ asset('css/employra.css') }}">
 </head>
 <body class="app-body min-vh-100 d-flex flex-column">
-    <header class="app-topbar px-4">
+    <header class="app-topbar px-3 px-md-4">
         <a href="{{ route('employer.dashboard') }}" aria-label="Employra employer page">
             <img src="{{ asset('images/employra-logo.png') }}" alt="Employra — Find, Hire, Grow" style="max-height:42px;">
         </a>
@@ -26,7 +26,7 @@
             </form>
         </div>
     </header>
-    <main class="container flex-grow-1 d-flex align-items-center justify-content-center py-5">
+    <main class="container flex-grow-1 d-flex align-items-center justify-content-center py-4 py-md-5 px-3">
         @yield('content')
     </main>
 </body>

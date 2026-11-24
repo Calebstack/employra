@@ -9,7 +9,7 @@
 @endphp
 
 <div class="card-emp mb-4 overflow-hidden">
-    <div class="profile-cover"></div>
+    <div class="profile-cover" style="height:110px; background: radial-gradient(420px 200px at 100% 0%, rgba(255,106,0,.45), transparent 60%), linear-gradient(120deg, #0a1f6e, #1245b8);"></div>
     <div class="px-4 pb-4">
         <div class="d-flex flex-wrap align-items-end gap-3" style="margin-top:-42px;">
             @if ($c['photo_url'])
@@ -143,7 +143,7 @@
                 @error('preferred_locations')<div class="text-danger small">{{ $message }}</div>@enderror
             </div>
         </div>
-        <div class="d-flex gap-2 mt-3">
+        <div class="d-flex flex-wrap gap-2 mt-4">
             <button class="btn btn-emp" type="submit">Save changes</button>
             <button type="button" class="btn btn-outline-navy" data-bs-toggle="collapse" data-bs-target="#editProfile">Cancel</button>
         </div>
@@ -153,11 +153,11 @@
 <div class="row g-4">
     <div class="col-lg-8">
         <section class="card-emp p-4 mb-4">
-            <h2 class="h5 mb-2">About</h2>
+            <h2 class="h5 mb-2"><i class="bi bi-person-lines-fill text-orange me-2"></i>About</h2>
             <p class="mb-0 text-break">{{ $c['summary'] ?: 'Add a short professional summary to your profile.' }}</p>
         </section>
         <section class="card-emp p-4">
-            <h2 class="h5 mb-3">Job preferences</h2>
+            <h2 class="h5 mb-3"><i class="bi bi-sliders text-orange me-2"></i>Job preferences</h2>
             <dl class="small mb-0">
                 <dt>Roles</dt><dd>{{ $c['preferred_roles'] ?: 'Not provided' }}</dd>
                 <dt>Locations</dt><dd>{{ $c['preferred_locations'] ?: 'Not provided' }}</dd>
@@ -169,7 +169,7 @@
     </div>
     <div class="col-lg-4">
         <section class="card-emp p-4">
-            <h2 class="h6 mb-3">Your CVs</h2>
+            <h2 class="h6 mb-3"><i class="bi bi-file-earmark-text text-orange me-2"></i>Your CVs</h2>
             <p class="small text-muted-emp">Your CV is stored privately and is shared with a company only when you select it for an application.</p>
             <a href="{{ route('candidate.cvs') }}" class="btn btn-outline-navy btn-sm w-100">Manage saved CVs</a>
         </section>

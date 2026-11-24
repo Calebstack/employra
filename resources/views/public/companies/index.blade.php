@@ -13,7 +13,7 @@
             </ol>
         </nav>
         <h1 class="h2 mb-1">Explore companies</h1>
-        <p class="text-muted-emp mb-3">Learn about employers and see who is hiring right now.</p>
+        <p class="text-muted-emp mb-4">Learn about employers and see who is hiring right now.</p>
 
         <form action="{{ route('companies.index') }}" method="GET" class="search-card" role="search">
             <div class="row g-0 align-items-center">
@@ -44,11 +44,14 @@
     </div>
 </section>
 
-<section class="section-sm bg-soft">
+<section class="section bg-soft">
     <div class="container">
-        <div class="fw-800 text-navy mb-3">{{ count($companies) }} {{ count($companies) === 1 ? 'company' : 'companies' }}</div>
+        <div class="d-flex flex-wrap align-items-center justify-content-between gap-2 mb-4">
+            <div class="fw-800 text-navy"><i class="bi bi-buildings me-2" style="color:var(--emp-blue)"></i>{{ count($companies) }} {{ count($companies) === 1 ? 'company' : 'companies' }}</div>
+            <span class="small text-muted-emp">Profiles show who is hiring right now</span>
+        </div>
 
-        <div class="row g-3">
+        <div class="row g-4">
             @forelse ($companies as $company)
                 <div class="col-md-6 col-lg-4">
                     @include('components.company-card', ['company' => $company])

@@ -2,12 +2,14 @@
 @section('title', 'Application details')
 
 @section('content')
-<div class="page-head mb-4">
-    <a href="{{ route('employer.jobs') }}" class="small fw-bold text-decoration-none"><i class="bi bi-arrow-left me-1"></i>Back to jobs</a>
-    <h1 class="page-title mt-3">Candidate application</h1>
+<div class="page-banner compact">
+    <div class="d-flex flex-wrap justify-content-between align-items-center gap-3">
+        <div><h1 class="page-title">Candidate application</h1><p class="mb-0">{{ $application['job_title'] }}</p></div>
+        <div class="d-flex flex-wrap gap-2"><a href="{{ route('employer.jobs') }}" class="btn btn-outline-navy btn-sm"><i class="bi bi-arrow-left me-1"></i>Back to jobs</a></div>
+    </div>
 </div>
 
-<section class="card-emp p-4 mb-4">
+<section class="card-emp p-3 p-md-4 mb-4">
     <div class="d-flex flex-wrap justify-content-between gap-3">
         <div class="d-flex align-items-center gap-3">
             @if ($application['photo_url'])
@@ -43,8 +45,8 @@
     </dl>
 </section>
 
-<section class="card-emp p-4 mb-4">
-    <h2 class="h5 mb-2">{{ $application['job_title'] }}</h2>
+<section class="card-emp p-3 p-md-4 mb-4">
+    <h2 class="h5 mb-2"><i class="bi bi-briefcase me-1 text-orange"></i>{{ $application['job_title'] }}</h2>
     <p class="small text-muted-emp mb-0">Submitted {{ $application['submitted_at'] }}</p>
     @if ($application['cv'])
         <a href="{{ $application['cv_download_url'] }}" class="btn btn-outline-navy btn-sm mt-3"><i class="bi bi-download me-1"></i>Download submitted CV · {{ $application['cv'] }}</a>
@@ -64,8 +66,8 @@
 </section>
 
 @if (! in_array($application['status'], ['Rejected', 'Withdrawn'], true))
-    <section class="card-emp p-4 mb-4">
-        <h2 class="h5 mb-3">Update application</h2>
+    <section class="card-emp p-3 p-md-4 mb-4">
+        <h2 class="h5 mb-3"><i class="bi bi-arrow-repeat me-1 text-orange"></i>Update application</h2>
         @php
             $nextStatuses = match ($application['status']) {
                 'New' => ['reviewing' => 'Move to reviewing', 'shortlisted' => 'Shortlist candidate', 'offer' => 'Make an offer'],
@@ -117,8 +119,8 @@
     </section>
 @endif
 
-<section class="card-emp p-4">
-    <h2 class="h5 mb-3">Interview history</h2>
+<section class="card-emp p-3 p-md-4">
+    <h2 class="h5 mb-3"><i class="bi bi-calendar-check me-1 text-orange"></i>Interview history</h2>
     @forelse ($application['interviews'] as $interview)
         <div class="border-top py-3">
             <div class="fw-bold">{{ $interview['date'] }} · {{ $interview['time'] }} · {{ $interview['mode'] }}</div>

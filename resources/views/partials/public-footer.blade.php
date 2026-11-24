@@ -15,24 +15,30 @@
 
             <div class="col-6 col-lg-2 offset-lg-1">
                 <h6>Candidates</h6>
-                <a href="{{ route('jobs.index') }}">Find jobs</a><br>
-                <a href="{{ route('companies.index') }}">Companies</a><br>
-                <a href="#">CV Check</a><br>
-                <a href="{{ route('register', ['role' => 'candidate']) }}">Create account</a>
+                <ul class="list-unstyled footer-links mb-0">
+                    <li><a href="{{ route('jobs.index') }}">Find jobs</a></li>
+                    <li><a href="{{ route('companies.index') }}">Companies</a></li>
+                    <li><a href="#">CV Check</a></li>
+                    <li><a href="{{ route('register', ['role' => 'candidate']) }}">Create account</a></li>
+                </ul>
             </div>
             <div class="col-6 col-lg-2">
                 <h6>Employers</h6>
-                <a href="{{ route('register', ['role' => 'company']) }}">Post a job</a><br>
-                <a href="{{ route('register', ['role' => 'company']) }}">Company profile</a><br>
-                <a href="#">How ranking works</a><br>
-                <a href="{{ route('login') }}">Employer sign in</a>
+                <ul class="list-unstyled footer-links mb-0">
+                    <li><a href="{{ route('register', ['role' => 'company']) }}">Post a job</a></li>
+                    <li><a href="{{ route('register', ['role' => 'company']) }}">Company profile</a></li>
+                    <li><a href="#">How ranking works</a></li>
+                    <li><a href="{{ route('login') }}">Employer sign in</a></li>
+                </ul>
             </div>
             <div class="col-6 col-lg-3">
                 <h6>Company</h6>
-                <a href="{{ route('home') }}#about">About Employra</a><br>
-                <a href="#">Privacy policy</a><br>
-                <a href="#">Terms of use</a><br>
-                <a href="#">Contact &amp; support</a>
+                <ul class="list-unstyled footer-links mb-0">
+                    <li><a href="{{ route('home') }}#about">About Employra</a></li>
+                    <li><a href="#">Privacy policy</a></li>
+                    <li><a href="#">Terms of use</a></li>
+                    <li><a href="#">Contact &amp; support</a></li>
+                </ul>
             </div>
         </div>
 
